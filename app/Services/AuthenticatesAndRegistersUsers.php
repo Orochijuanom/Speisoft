@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 use App\Services\Registrar;
 
+use App\Rol;
+
 trait AuthenticatesAndRegistersUsers {
 
 	/**
@@ -26,8 +28,10 @@ trait AuthenticatesAndRegistersUsers {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function getRegister()
-	{
-		return view('auth.register');
+	{	
+		$roles = Rol::orderBy('rol', 'ASC')->get();
+		
+		return view('auth.register')->with('roles', $roles);
 	}
 
 	/**

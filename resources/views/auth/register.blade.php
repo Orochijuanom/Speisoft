@@ -24,7 +24,22 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">Rol</label>
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="rol_id" value="{{ old('rol_id') }}">
+
+								<select class="form-control" name="rol_id">
+
+									@foreach ($roles as $rol)
+										@if (old('rol_id') == $rol->id)
+										
+											<option value="{{$rol -> id}}" selected>{{$rol->rol}}</option>
+										@else
+
+											<option value="{{$rol -> id}}">{{$rol->rol}}</option>
+
+										@endif
+									@endforeach
+
+								</select>
+
 							</div>
 						</div>
 
