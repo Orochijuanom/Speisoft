@@ -88,7 +88,7 @@ trait AuthenticatesAndRegistersUsers {
 		return redirect($this->loginPath())
 					->withInput($request->only('email'))
 					->withErrors([
-						'email' => 'ldkñ.',
+						'email' => 'Los datos ingresados no coinciden con nuestros registros.',
 					]);
 	}
 

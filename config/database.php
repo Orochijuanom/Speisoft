@@ -55,9 +55,9 @@ return [
 		'mysql' => [
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'Speisoft',
-			'username'  => 'root',
-			'password'  => '',
+			'database'  => 'demos_speisoft',
+			'username'  => 'demos',
+			'password'  => 'NetDemos2015',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
