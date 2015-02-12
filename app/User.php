@@ -17,6 +17,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $table = 'users';
 
+	public function roles(){
+
+		return $this->belongsTo('App\Rol', 'rol_id');
+
+	}
+
+
 	/**
 	 * The attributes that are mass assignable.
 	 *

@@ -1,8 +1,11 @@
-<?php namespace App\Services;
+<?php namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 use App\Services\Registrar;
+
+use Auth;
+use Response;
 
 use App\Rol;
 
@@ -29,9 +32,10 @@ trait AuthenticatesAndRegistersUsers {
 	 */
 	public function getRegister()
 	{	
-		$roles = Rol::orderBy('rol', 'ASC')->get();
 		
-		return view('auth.register')->with('roles', $roles);
+			$roles = Rol::orderBy('rol', 'ASC')->get();
+			return view('auth.register')->with('roles', $roles);
+		
 	}
 
 	/**
@@ -51,9 +55,9 @@ trait AuthenticatesAndRegistersUsers {
 			);
 		}
 
-		$this->auth->login($this->registrar->create($request->all()));
+		$this->registrar->create($request->all());
 
-		return redirect($this->redirectPath());
+		return redirect('auth/register') -> with('mensagge', 'Usuario registrado');
 	}
 
 	/**

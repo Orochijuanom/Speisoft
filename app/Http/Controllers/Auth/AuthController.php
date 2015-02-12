@@ -3,7 +3,9 @@
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
-use App\Services\AuthenticatesAndRegistersUsers;
+
+//este archivo e extrajo de illuminate\foundation\auth\AuthenticatesAndRegistersUsers
+use App\Http\Controllers\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller {
 
@@ -33,6 +35,7 @@ class AuthController extends Controller {
         $this->registrar = $registrar;
 
         $this->middleware('guest', ['except' => 'getLogout']);
+        $this->middleware('admin', ['only' => 'getRegister']);
     }
 
 }

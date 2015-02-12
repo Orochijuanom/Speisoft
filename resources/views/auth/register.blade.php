@@ -7,6 +7,13 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">Register</div>
 				<div class="panel-body">
+					@if (Session::get('mensagge'))
+						<div class="alert alert-success">
+							{{Session::get('mensagge')}}
+							<br><br>			
+						</div>
+					@endif
+
 					@if (count($errors) > 0)
 						<div class="alert alert-danger">
 							<strong>Whoops!</strong> Hubo Algunos problemas con tu entrada.<br><br>
