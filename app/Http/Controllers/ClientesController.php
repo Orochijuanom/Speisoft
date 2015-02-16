@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 use App\Cliente;
 use View;
-use Input;
 use Redirect;
 
 

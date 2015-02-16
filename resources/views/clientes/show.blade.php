@@ -5,7 +5,7 @@
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 				<div class="panel panel-default">
-					<div class="panel-heading">Registrar clientes</div>
+					<div class="panel-heading">{{$cliente->nombre}} {{$cliente->apellidos}}</div>
 					<div class="panel-body">
 						@if (Session::get('mensagge'))
 							<div class="alert alert-success">

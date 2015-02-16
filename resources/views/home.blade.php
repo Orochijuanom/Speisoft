@@ -10,6 +10,8 @@
 				<div class="panel-body">
 					<a href="/users">ruta users</a> <br>
 					<a href="/clientes">ruta clientes</a> <br>
+					<a href="/especies">ruta especies</a> <br>
+					<a href="/razas">ruta razas</a> <br>
 				</div>
 			</div>
 		</div>

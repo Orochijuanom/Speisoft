@@ -21,5 +21,10 @@ Route::controllers([
 ]);
 
 Route::resource('/users', 'UsersController', ['only' => ['index', 'destroy']]);
-Route::resource('/clientes', 'ClientesController');
 
+//agregar ruta para ver las mascotas
+Route::resource('/clientes', 'ClientesController');
+//agregar ruta para ver las razas
+Route::resource('/especies', 'EspeciesController');
+
+Route::resource('/razas', 'RazasController');
