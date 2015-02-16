@@ -20,5 +20,6 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-Route::resource('/users', 'UsersController', ['only' => ['index', 'destroy']] );
+Route::resource('/users', 'UsersController', ['only' => ['index', 'destroy']]);
+Route::resource('/clientes', 'ClientesController');
 

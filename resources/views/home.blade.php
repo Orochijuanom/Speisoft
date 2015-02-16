@@ -8,7 +8,8 @@
 				<div class="panel-heading">Home</div>
 
 				<div class="panel-body">
-					You are logged in!
+					<a href="/users">ruta users</a> <br>
+					<a href="/clientes">ruta clientes</a> <br>
 				</div>
 			</div>
 		</div>

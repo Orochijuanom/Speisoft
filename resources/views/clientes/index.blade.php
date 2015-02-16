@@ -5,7 +5,7 @@
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
-				<div class="panel-heading">Usuarios</div>
+				<div class="panel-heading">Clientes</div>
 				<div class="panel-body">
 					@if (Session::get('mensagge_delete'))
 						<div class="alert alert-success">
@@ -13,34 +13,36 @@
 							<br><br>			
 						</div>
 					@endif
-					@if(count($users)>0)
+
+					@if(count($clientes)>0)
 						<section id='no-more-tables'>
 							<table class='table table-responsive'>
 								<thead>
 									<tr>
-										<th>Usuario</th>
+										<th>Nombre</th>
+										<th>Celular</th>
 										<th>Email</th>
-										<th>Rol</th>
+										<th>Mascotas</th>
 										<th>Eliminar</th>
 									</tr>
 								</thead>
 								<tbody>
-									@foreach ($users as $user)
+									@foreach ($clientes as $cliente)
 
 										<tr>
-											<td data-title='Usuario'>{{$user->name}}</td>
-											<td data-title='Email'>{{$user->email}}</td>
-											<td data-title='Rol'>{{$user->roles->rol}}</td>
+											<td data-title='Nombre'><a href="clientes/{{$cliente->id}}">{{$cliente->nombre}} {{$cliente->apellidos}}</a></td>
+											<td data-title='Celular'>{{$cliente->celular}}</td>
+											<td data-title='Email'>{{$cliente->email}}</td>
+											<td data-title='Mascotas'><a href="clientes/mascotas/{{$cliente->id}}">Ver mascotas</a></td>
 											<td data-title='Eliminar'>
-												<form action='/users/{{$user->id}}' method='post'>
+												<form action='/clientes/{{$cliente->id}}' method='post'>
 
 													<input name='_method' type='hidden' value='DELETE'>
 													<input name='_token' type='hidden' value='{{csrf_token()}}'>
 													<button type='submit' class="btn btn-danger">
-														Eliminar usuario
+														Eliminar Cliente
 													</button>
-
-												</form>
+											</form>
 											</td>
 										</tr>
 
@@ -48,19 +50,18 @@
 								</tbody>
 
 							</table>
-							{!!$users->render()!!}
+							{!!$clientes->render()!!}
 						</section>
 					@else
 
-						<p class='alert alert-info'><strong>Whoops!</strong> No se encuetran usuarios en el sistema.</p>
+						<p class='alert alert-info'><strong>Whoops!</strong> No se encuetran clientes en el sistema.</p>
 
 					@endif
 
-					{!!link_to('auth/register','Añadir usuarios')!!}
+					{!!link_to('clientes/create','Añadir clientes')!!}
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
 @endsection

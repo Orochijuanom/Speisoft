@@ -9,6 +9,7 @@ use App\User;
 use View;
 use Response;
 use Redirect;
+use Auth;
 
 
 class UsersController extends Controller {
@@ -27,7 +28,7 @@ class UsersController extends Controller {
 	public function index()
 	{
 		
-		$users = User::with('roles')->get();
+		$users = User::with('roles')->paginate(5);
 		return View::make('users.index')->with('users', $users);
 
 	}
@@ -93,28 +94,35 @@ class UsersController extends Controller {
 	 */
 	public function destroy($id)
 	{	
-
-		try {
-
-			$user = User::findOrFail($id);
+		
+		if ($id != Auth::user()->id) {
 			
-		} catch (Exception $e) {
+			try {
 
-			return Response::view('erros/404', array(), 404);
-			
-		}
+				$user = User::findOrFail($id);
+				
+			} catch (Exception $e) {
 
-		if($destroy = $user -> delete()){
+				return Response::view('erros/404', array(), 404);
+				
+			}
 
-			return Redirect::route('users.index') -> with('mensagge_delete', 'Usuario eliminado');
+			if($destroy = $user -> delete()){
 
+				return Redirect::route('users.index') -> with('mensagge_delete', 'Usuario eliminado');
+
+			}else{
+
+				return Response::view('errors/400', array(), 400);
+
+			}
+		
+		
 		}else{
 
-			return Response::view('errors/400', array(), 400);
+			return response::view('errors/401',array() ,401);
 
 		}
-		
-		
-	}
 
+	}
 }
