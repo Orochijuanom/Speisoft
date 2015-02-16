@@ -109,7 +109,8 @@ class ClientesController extends Controller {
 	 */
 	public function edit($id)
 	{
-		
+		$cliente = Cliente::where('id', '=', $id)->first();
+		return View::make('clientes.edit')->with('cliente', $cliente);
 		
 	}
 
@@ -119,9 +120,41 @@ class ClientesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, Request $request)
 	{
-		//
+		$this->validate($request,[
+
+			'nombre' => 'required|min:4|max:255',
+			'apellidos' => 'required|max:255',
+			'cedula' => 'required|min:8|unique:clientes,cedula,'.$id.'|numeric',
+			'celular' => 'required|min:8|numeric',
+			'telefono' => 'min:8|numeric',
+			'email' => 'email|min:8|max:255|unique:clientes,email,'.$id.'',
+			'direccion' => 'min:8|max:255',
+			'bbm' => 'max:255',
+			'facebook' => 'url|max:255',
+			'profesion' => 'max:255',
+			'cumpleanios' => 'date'
+
+			]);
+
+		Cliente::where('id', '=', $id)->update([
+
+			'nombre' => $request['nombre'],
+			'apellidos' => $request['apellidos'],
+			'cedula' => $request['cedula'],
+			'telefono' => $request['telefono'],
+			'celular' => $request['celular'],
+			'email' => $request['email'],
+			'direccion' => $request['direccion'],
+			'bbm' => $request['bbm'],
+			'facebook' => $request['facebook'],
+			'profesion' => $request['profesion'],
+			'cumpleanios' => $request['cumpleanios']
+
+			]);
+
+		return redirect('clientes/'.$id.'/edit') -> with('mensagge', 'Cliente editado');
 	}
 
 	/**

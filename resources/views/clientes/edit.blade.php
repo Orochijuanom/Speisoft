@@ -25,82 +25,84 @@
 							</div>
 						@endif
 
-						<form class="form-horizontal" action="/clientes/{{$cliente->id}}/edit" method="get">
+						<form class="form-horizontal" role="form" method="POST" action="/clientes/{{$cliente->id}}">
+							<input type="hidden" name="_token" value="{{ csrf_token() }}">
+							<input type="hidden" name="_method" value="PUT">
 							
 							<div class="form-group">
 								<label class="col-md-4 control-label">Nombre</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="nombre" value="{{ $cliente->nombre }}" required disabled>
+									<input type="text" class="form-control" name="nombre" value="{{ $cliente->nombre }}" required>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-4 control-label">Apellidos</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="apellidos" value="{{ $cliente->apellidos }}" required disabled>
+									<input type="text" class="form-control" name="apellidos" value="{{ $cliente->apellidos }}" required>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-4 control-label">Cédula</label>
 								<div class="col-md-6">
-									<input type="number" class="form-control" name="cedula" value="{{ $cliente->cedula }}" required disabled>
+									<input type="number" class="form-control" name="cedula" value="{{ $cliente->cedula }}" required>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-4 control-label">Celular</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="celular" value="{{ $cliente->celular }}" required disabled>
+									<input type="text" class="form-control" name="celular" value="{{ $cliente->celular }}" required>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-4 control-label">Telefono</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="telefono" value="{{ $cliente->telefono }}" disabled>
+									<input type="text" class="form-control" name="telefono" value="{{ $cliente->telefono }}">
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-4 control-label">Email</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="email" value="{{ $cliente->email }}" required disabled>
+									<input type="text" class="form-control" name="email" value="{{ $cliente->email }}" required>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-4 control-label">Direccion</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="direccion" value="{{ $cliente->direccion }}" disabled>
+									<input type="text" class="form-control" name="direccion" value="{{ $cliente->direccion }}">
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-4 control-label">BBM</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="bbm" value="{{ $cliente->bbm }}" disabled>
+									<input type="text" class="form-control" name="bbm" value="{{ $cliente->bbm }}">
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-4 control-label">Facebook</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="facebook" value="{{ $cliente->facebook }}" disabled>
+									<input type="text" class="form-control" name="facebook" value="{{ $cliente->facebook }}">
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-4 control-label">Profesión</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="profesion" value="{{ $cliente->profesion }}" disabled>
+									<input type="text" class="form-control" name="profesion" value="{{ $cliente->profesion }}">
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-4 control-label">Cumpleaños</label>
 								<div class="col-md-6">
-									<input type="date" class="form-control" name="cumpleanios" value="{{ $cliente->cumpleanios }}" disabled>
+									<input type="date" class="form-control" name="cumpleanios" value="{{ $cliente->cumpleanios }}">
 								</div>
 							</div>
 

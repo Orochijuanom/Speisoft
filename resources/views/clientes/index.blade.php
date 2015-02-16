@@ -42,7 +42,7 @@
 													<button type='submit' class="btn btn-danger">
 														Eliminar Cliente
 													</button>
-											</form>
+												</form>
 											</td>
 										</tr>
 
