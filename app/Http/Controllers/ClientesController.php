@@ -186,4 +186,15 @@ class ClientesController extends Controller {
 		
 	}
 
+	public function mascotas($id)
+	{
+
+		$cliente = Cliente::find($id);
+		$mascotas = $cliente->mascotas()->paginate(10);
+
+
+		return View::make('clientes.mascotas', ['cliente' => $cliente, 'mascotas' => $mascotas]);
+
+	}
+
 }

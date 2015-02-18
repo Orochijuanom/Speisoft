@@ -5,7 +5,7 @@
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 				<div class="panel panel-default">
-					<div class="panel-heading">Registrar Mascotas</div>
+					<div class="panel-heading">{{$mascota->nombre}}</div>
 					<div class="panel-body">
 						@if (Session::get('mensagge'))
 							<div class="alert alert-success">
@@ -25,17 +25,16 @@
 							</div>
 						@endif
 
-						<form class="form-horizontal" role="form" method="POST" action="/mascotas">
-							<input type="hidden" name="_token" value="{{ csrf_token() }}">
+						<form class="form-horizontal" role="form" method="GET" action="/mascotas/{{$mascota->id}}/edit">
 
 							<div class="form-group">
 								<label class="col-md-4 control-label">Cliente</label>
 								<div class="col-md-6">
 
-									<select class="form-control" name="cliente_id">
+									<select class="form-control" name="cliente_id" disabled>
 
 										@foreach ($clientes as $cliente)
-											@if (old('cliente_id') == $cliente->id)
+											@if ($mascota->clientes->id == $cliente->id)
 											
 												<option value="{{$cliente -> id}}" selected>{{$cliente->nombre}} {{$cliente->apellidos}}</option>
 											@else
@@ -54,10 +53,10 @@
 								<label class="col-md-4 control-label">Raza</label>
 								<div class="col-md-6">
 
-									<select class="form-control" name="raza_id">
+									<select class="form-control" name="raza_id" disabled>
 
 										@foreach ($razas as $raza)
-											@if (old('raza_id') == $raza->id)
+											@if ($mascota->razas->id == $raza->id)
 											
 												<option value="{{$raza -> id}}" selected>{{$raza->especies->especie}} - {{$raza->raza}}</option>
 											@else
@@ -75,7 +74,7 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label">Nombre</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="nombre" value="{{ old('nombre') }}" required>
+									<input type="text" class="form-control" name="nombre" value="{{ $mascota->nombre }}" required disabled>
 								</div>
 							</div>
 
@@ -83,9 +82,9 @@
 								<label class="col-md-4 control-label">Sexo</label>
 								<div class="col-md-6">
 
-									<select class="form-control" name="sexo">
+									<select class="form-control" name="sexo" disabled>
 
-										@if (old('sexo') == 'M')
+										@if ($mascota->sexo == 'M')
 										
 											<option value="M" selected>M</option>
 											<option value="F">F</option>
@@ -105,91 +104,91 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label">Peso</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="peso" value="{{ old('peso') }}">
+									<input type="text" class="form-control" name="peso" value="{{ $mascota->peso }}" disabled>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-4 control-label">Alzada</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="alzada" value="{{ old('alzada') }}">
+									<input type="text" class="form-control" name="alzada" value="{{ $mascota->alzada }}" disabled>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-4 control-label">Color</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="color" value="{{ old('color') }}">
+									<input type="text" class="form-control" name="color" value="{{ $mascota->color }}" disabled>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-4 control-label">Pelaje</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="pelaje" value="{{ old('pelaje') }}">
+									<input type="text" class="form-control" name="pelaje" value="{{ $mascota->pelaje }}"  disabled>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-4 control-label">Cicatrices</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="cicatrices" value="{{ old('cicatrices') }}">
+									<input type="text" class="form-control" name="cicatrices" value="{{ $mascota->cicatrices }}" disabled>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-4 control-label">Cirujias esteticas</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="cxesteticas" value="{{ old('cxesteticas') }}">
+									<input type="text" class="form-control" name="cxesteticas" value="{{ $mascota->cxesteticas }}" disabled>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-4 control-label">Tatuaje</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="tatuaje" value="{{ old('tatuaje') }}">
+									<input type="text" class="form-control" name="tatuaje" value="{{ $mascota->tatuaje }}" disabled>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-4 control-label">Condicion corporal</label>
 								<div class="col-md-6">
-									<input type="number" class="form-control" name="condcorporal" value="{{ old('condcorporal') }}" min="1" max="5">
+									<input type="number" class="form-control" name="condcorporal" value="{{ $mascota->condcorporal }}" min="0" max="5" disabled>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-4 control-label">Fin zootecnico</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="finzootecnico" value="{{ old('finzootecnico') }}">
+									<input type="text" class="form-control" name="finzootecnico" value="{{ $mascota->finzootecnico }}" disabled>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-4 control-label">Entorno</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="entorno" value="{{ old('entorno') }}">
+									<input type="text" class="form-control" name="entorno" value="{{ $mascota->entorno }}" disabled>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-4 control-label">Nutrición</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="nutricion" value="{{ old('nutricion') }}">
+									<input type="text" class="form-control" name="nutricion" value="{{ $mascota->nutricion }}" disabled>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-4 control-label">Estilo de vida</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="estilovida" value="{{ old('estilovida') }}">
+									<input type="text" class="form-control" name="estilovida" value="{{ $mascota->estilovida }}" disabled>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-4 control-label">Fecha de nacimiento</label>
 								<div class="col-md-6">
-									<input type="date" class="form-control" name="nacimiento" value="{{ old('nacimiento') }}">
+									<input type="date" class="form-control" name="nacimiento" value="{{ $mascota->nacimiento }}" disabled>
 								</div>
 							</div>
 
@@ -197,20 +196,20 @@
 								<label class="col-md-4 control-label">Recordatorio de cumpleaños</label>
 								<div class="col-md-6">
 
-									@if(old('recordatoriocumple') == "1")
+									@if($mascota->recordatoriocumple == "1")
 
-										<label class="radio">Si</label> <input type="radio" class="form-control" name="recordatoriocumple" value="1" checked>
-										<label class="radio">No</label> <input type="radio" class="form-control" name="recordatoriocumple" value="0">
+										<label class="radio">Si</label> <input type="radio" class="form-control" name="recordatoriocumple" value="1" checked disabled>
+										<label class="radio">No</label> <input type="radio" class="form-control" name="recordatoriocumple" value="0" disabled>
 
-									@elseif(old('recordatoriocumple') == "0")
+									@elseif($mascota->recordatoriocumple == "0")
 
-										<label class="radio">Si</label> <input type="radio" class="form-control" name="recordatoriocumple" value="1">
-										<label class="radio">No</label> <input type="radio" class="form-control" name="recordatoriocumple" value="0" checked>
+										<label class="radio">Si</label> <input type="radio" class="form-control" name="recordatoriocumple" value="1" disabled>
+										<label class="radio">No</label> <input type="radio" class="form-control" name="recordatoriocumple" value="0" checked disabled>
 
 									@else
-										{{old('recordatoriocumple')}}
-										<label class="radio">Si</label> <input type="radio" class="form-control" name="recordatoriocumple" value="1">
-										<label class="radio">No</label> <input type="radio" class="form-control" name="recordatoriocumple" value="0">
+										
+										<label class="radio">Si</label> <input type="radio" class="form-control" name="recordatoriocumple" value="1" disabled>
+										<label class="radio">No</label> <input type="radio" class="form-control" name="recordatoriocumple" value="0" disabled>
 
 									@endif
 
@@ -220,7 +219,7 @@
 							<div class="form-group">
 								<div class="col-md-6 col-md-offset-4">
 									<button type="submit" class="btn btn-primary">
-										Registrar
+										Editar mascota
 									</button>
 								</div>
 							</div>

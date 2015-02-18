@@ -12,6 +12,7 @@
 					<a href="/clientes">ruta clientes</a> <br>
 					<a href="/especies">ruta especies</a> <br>
 					<a href="/razas">ruta razas</a> <br>
+					<a href="/mascotas">rutas mascotas</a> <br>
 				</div>
 			</div>
 		</div>

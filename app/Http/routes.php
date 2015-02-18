@@ -22,10 +22,10 @@ Route::controllers([
 
 Route::resource('/users', 'UsersController', ['only' => ['index', 'destroy']]);
 
-//agregar ruta para ver las mascotas
+Route::get('/clientes/{clientes}/mascotas', ['as' => 'clientes.mascotas', 'uses' => 'ClientesController@mascotas']);
 Route::resource('/clientes', 'ClientesController');
 
-Route::get('/especies/{especies}/razas',['as' => 'especies.razas.razas', 'uses' => 'EspeciesController@razas']);
+Route::get('/especies/{especies}/razas',['as' => 'especies.razas', 'uses' => 'EspeciesController@razas']);
 Route::resource('/especies', 'EspeciesController');
 
 Route::resource('/razas', 'RazasController');

@@ -64,16 +64,16 @@ class MascotasController extends Controller {
 			'cicatrices' => 'max:50',
 			'cxesteticas' => 'max:50',
 			'tatuajes' => 'max:100',
-			'condcorporal' => 'numeric|min:1|max:5',
+			'condcorporal' => 'numeric|min:0|max:5',
 			'finzootecnico' => 'max:255',
 			'entorno' => 'max:100',
 			'nutricion' => 'max:100',
 			'estilovida' => 'max:50',
-			'nacimiento' => 'date|required',
+			'nacimiento' => 'date|required_with:recordatoriocumple',
 			'recordatoriocumple' => 'boolean|required_with:nacimiento',
 
 			]);
-		exit;
+		
 
 		Mascota::create([
 
@@ -130,7 +130,7 @@ class MascotasController extends Controller {
 		$clientes = Cliente::orderBy('nombre', 'ASC')->get();
 		$razas = Raza::orderBy('especie_id', 'ASC')->get();
 		$mascota = Mascota::with('clientes', 'razas')->where('id', '=', $id)->first();
-		return View::make('mascotas.show', ['clientes' => $clientes, 'razas' => $razas, 'mascota' => $mascota]);	
+		return View::make('mascotas.edit', ['clientes' => $clientes, 'razas' => $razas, 'mascota' => $mascota]);	
 
 	}
 
@@ -153,12 +153,12 @@ class MascotasController extends Controller {
 			'cicatrices' => 'max:50',
 			'cxesteticas' => 'max:50',
 			'tatuajes' => 'max:100',
-			'condcorporal' => 'numeric|min:1|max:5',
+			'condcorporal' => 'numeric|min:0|max:5',
 			'finzootecnico' => 'max:255',
 			'entorno' => 'max:100',
 			'nutricion' => 'max:100',
 			'estilovida' => 'max:50',
-			'nacimiento' => 'date',
+			'nacimiento' => 'date|required_with:recordatoriocumple',
 			'recordatoriocumple' => 'boolean|required_with:nacimiento'
 
 			]);
@@ -173,10 +173,10 @@ class MascotasController extends Controller {
 			'alzada' => $request['alzada'],
 			'color' => $request['color'],
 			'pelaje' => $request['pelaje'],
-			'ciatrices' => $request['cicatrices'],
+			'cicatrices' => $request['cicatrices'],
 			'cxesteticas' => $request['cxesteticas'],
 			'tatuajes' => $request['tatuajes'],
-			'conddorporal' => $request['condcorporal'],
+			'condcorporal' => $request['condcorporal'],
 			'finzootecnico' => $request['finzootecnico'],
 			'entorno' => $request['entorno'],
 			'nutricion' => $request['nutricion'],
