@@ -148,4 +148,14 @@ class EspeciesController extends Controller {
 
 	}
 
+	public function razas($id){
+
+		$especie = Especie::find($id);
+		$razas = $especie->razas()->paginate(10);
+
+
+		return View::make('especies.razas',['especie' => $especie,  'razas' => $razas]);
+
+	}
+
 }

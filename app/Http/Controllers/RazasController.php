@@ -26,7 +26,7 @@ class RazasController extends Controller {
 	public function index()
 	{
 
-		$razas = Raza::with('especies')->paginate(5);
+		$razas = Raza::with('especies')->paginate(15);
 		return View::make('razas.index')->with('razas', $razas);
 
 	}
@@ -65,7 +65,7 @@ class RazasController extends Controller {
 			'raza' => $request['raza']
 
 			]);
-
+		
 		return redirect('razas/create') -> with('mensagge', 'Raza registrada');
 
 	}
@@ -139,7 +139,7 @@ class RazasController extends Controller {
 				
 			} catch (Exception $e) {
 
-				return Response::view('erros/404', array(), 404);
+				return Response::view('errors/404', array(), 404);
 				
 			}
 

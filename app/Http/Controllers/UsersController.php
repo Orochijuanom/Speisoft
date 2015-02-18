@@ -103,7 +103,7 @@ class UsersController extends Controller {
 				
 			} catch (Exception $e) {
 
-				return Response::view('erros/404', array(), 404);
+				return Response::view('errors/404', array(), 404);
 				
 			}
 

@@ -5,7 +5,7 @@
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
-				<div class="panel-heading">Especies</div>
+				<div class="panel-heading">{{$especie->especie}}</div>
 				<div class="panel-body">
 					@if (Session::get('mensagge_delete'))
 						<div class="alert alert-success">
@@ -14,29 +14,29 @@
 						</div>
 					@endif
 
-					@if(count($especies)>0)
+					@if(count($razas)>0)
 						<section id='no-more-tables'>
 							<table class='table table-responsive'>
 								<thead>
 									<tr>
+										<th>Raza</th>
 										<th>Especie</th>
-										<th>Razas</th>
 										<th>Eliminar</th>
 									</tr>
 								</thead>
 								<tbody>
-									@foreach ($especies as $especie)
+									@foreach ($razas as $raza)
 
 										<tr>
-											<td data-title='Especie'><a href="especies/{{$especie->id}}">{{$especie->especie}}</a></td>
-											<td data-title='Razas'><a href="especies/{{$especie->id}}/razas">Ver razas</a></td>
+											<td data-title='Raza'><a href="razas/{{$raza->id}}">{{$raza->raza}}</a></td>
+											<td data-title='Especie'>{{$raza->especies->especie}}</td>
 											<td data-title='Eliminar'>
-												<form action='/especies/{{$especie->id}}' method='post'>
+												<form action='/razas/{{$raza->id}}' method='post'>
 
 													<input name='_method' type='hidden' value='DELETE'>
 													<input name='_token' type='hidden' value='{{csrf_token()}}'>
 													<button type='submit' class="btn btn-danger">
-														Eliminar Especie
+														Eliminar Raza
 													</button>
 												</form>
 											</td>
@@ -46,15 +46,16 @@
 								</tbody>
 
 							</table>
-							{!!$especies->render()!!}
+							{!!$razas->render()!!}
 						</section>
 					@else
 
-						<p class='alert alert-info'><strong>Whoops!</strong> No se encuetran especies en el sistema.</p>
+						<p class='alert alert-info'><strong>Whoops!</strong> No se encuetran razas en el sistema.</p>
 
 					@endif
+					
 
-					{!!link_to('especies/create','Añadir especies')!!}
+					{!!link_to('razas/create','Añadir razas')!!}
 				</div>
 			</div>
 		</div>

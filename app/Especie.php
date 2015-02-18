@@ -8,7 +8,7 @@ class Especie extends Model {
 
 	public function razas()
 	{
-		return $this->hasMany('App\raza','especie_id', 'id');
+		return $this->hasMany('App\Raza','especie_id', 'id');
 	}
 
 	public $timestamps = false;
