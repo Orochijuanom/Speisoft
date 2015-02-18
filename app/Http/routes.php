@@ -31,3 +31,5 @@ Route::resource('/especies', 'EspeciesController');
 Route::resource('/razas', 'RazasController');
 
 Route::resource('/mascotas', 'MascotasController');
+
+Route::resource('/sedes', 'SedesController');

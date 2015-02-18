@@ -38,7 +38,7 @@
 													<input name='_method' type='hidden' value='DELETE'>
 													<input name='_token' type='hidden' value='{{csrf_token()}}'>
 													<button type='submit' class="btn btn-danger">
-														Eliminar Mscoota
+														Eliminar Mascota
 													</button>
 												</form>
 											</td>
