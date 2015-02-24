@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductoProveedorTable extends Migration {
+class CreateProductoProveedoreTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,18 +12,18 @@ class CreateProductoProveedorTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('producto_proveedor', function(Blueprint $table){
+		Schema::create('producto_proveedore', function(Blueprint $table){
 
 			$table->increments('id');
 			$table->integer('producto_id')->unsigned();
-			$table->integer('proveedor_id')->unsigned();
+			$table->integer('proveedore_id')->unsigned();
 			
 			$table->foreign('producto_id')
 				  ->references('id')->on('productos')
 				  ->onDelete('restrict')
 				  ->onUpdate('no action');
 
-			$table->foreign('proveedor_id')
+			$table->foreign('proveedore_id')
 				  ->references('id')->on('proveedores')
 				  ->onDelete('restrict')
 				  ->onUpdate('no action');
