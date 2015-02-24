@@ -21,7 +21,7 @@ class CreateStocksTable extends Migration {
 			$table->integer('cantidad');
 			$table->float('valor');
 
-			$table->unique(['producto_id', 'sede_id']);
+			$table->unique(array('producto_id', 'sede_id'));
 
 			$table->foreign('producto_id')
 				  ->references('id')->on('productos')
