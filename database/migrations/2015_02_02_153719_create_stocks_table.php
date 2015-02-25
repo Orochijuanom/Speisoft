@@ -21,17 +21,17 @@ class CreateStocksTable extends Migration {
 			$table->integer('cantidad');
 			$table->float('valor');
 
-			$table->unique(array('producto_id', 'sede_id'));
-
 			$table->foreign('producto_id')
 				  ->references('id')->on('productos')
 				  ->onDelete('restrict')
 				  ->onUpdate('no action');
 
 			$table->foreign('sede_id')
-				  ->references('id')->on('sede')
+				  ->references('id')->on('sedes')
 				  ->onDelete('restrict')
-				  ->onUpdate('no action');	  
+				  ->onUpdate('no action');	 
+
+			$table->unique(['producto_id', 'sede_id']); 
 
 				  
 

@@ -40,7 +40,7 @@ class CreateMarcaProveedoreTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('marca_proveedor');
+		Schema::drop('marca_proveedore');
 	}
 
 }

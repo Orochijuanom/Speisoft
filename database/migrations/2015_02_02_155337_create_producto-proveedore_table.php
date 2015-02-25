@@ -38,7 +38,7 @@ class CreateProductoProveedoreTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('producto_proveedor');
+		Schema::drop('producto_proveedore');
 	}
 
 }

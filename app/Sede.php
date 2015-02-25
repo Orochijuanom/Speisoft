@@ -4,10 +4,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sede extends Model {
 
-	protected $fillable = [];
+	protected $fillable = ['nombre', 'direccion', 'telefono', 'email', 'encargado', 'nit'];
 
 	public $timestamps = false;
 
-	protected = 'sedes';
+	protected $table = 'sedes';
 
 }
