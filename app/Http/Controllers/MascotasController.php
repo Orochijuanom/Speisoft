@@ -57,6 +57,8 @@ class MascotasController extends Controller {
 		$this->validate($request, [
 
 			'nombre' => 'required|min:4|max:255|unique:mascotas,nombre,NULL,id,cliente_id,'.$request['cliente_id'].'',
+			'cliente_id' => 'required',
+			'raza_id' => 'required',
 			'peso' => 'numeric',
 			'alzada' => 'numeric',
 			'color' => 'min:4|max:50',
@@ -146,6 +148,8 @@ class MascotasController extends Controller {
 		$this->validate($request, [
 
 			'nombre' => 'required|min:4|max:255|unique:mascotas,nombre,'.$id.',id,cliente_id,'.$request['cliente_id'].'',
+			'cliente_id' => 'required',
+			'raza_id' => 'required',
 			'peso' => 'numeric',
 			'alzada' => 'numeric',
 			'color' => 'min:4|max:50',

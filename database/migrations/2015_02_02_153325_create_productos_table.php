@@ -16,10 +16,10 @@ class CreateProductosTable extends Migration {
 
 			$table->increments('id');
 			$table->string('producto', 80);
-			$table->integer('marca_id')->unsigned();
+			$table->integer('tipoproducto_id')->unsigned();
 
-			$table->foreign('marca_id')
-				  ->references('id')->on('marcas')
+			$table->foreign('tipoproducto_id')
+				  ->references('id')->on('tipoproductos')
 				  ->onDelete('restrict')
 				  ->onUpdate('no action');
 

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMarcaTipoproductoTable extends Migration {
+class CreateProveedoreSedeTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,19 +12,19 @@ class CreateMarcaTipoproductoTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('marca_tipoproducto', function(Blueprint $table){
+		Schema::create('proveedore_sede', function(Blueprint $table){
 
 			$table->increments('id');
-			$table->integer('marca_id')->unsigned();
-			$table->integer('tipoproducto_id')->unsigned();
+			$table->integer('proveedore_id')->unsigned();
+			$table->integer('sede_id')->unsigned();
 
-			$table->foreign('marca_id')
-				  ->references('id')->on('marcas')
+			$table->foreign('proveedore_id')
+				  ->references('id')->on('proveedores')
 				  ->onDelete('restrict')
 				  ->onUpdate('no action');
 
-			$table->foreign('tipoproducto_id')
-				  ->references('id')->on('tipoproductos')
+			$table->foreign('sede_id')
+				  ->references('id')->on('sedes')
 				  ->onDelete('restrict')
 				  ->onUpdate('no action');
 
@@ -38,7 +38,7 @@ class CreateMarcaTipoproductoTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('marca_tipoproducto');
+		Schema::drop('proceedore_sede');
 	}
 
 }

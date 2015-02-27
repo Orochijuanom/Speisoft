@@ -5,19 +5,17 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-use App\Especie;
+use App\Tipoproducto;
 use View;
-use Redirect;
+use redirect;
 
-
-class EspeciesController extends Controller {
+class TipoproductosController extends Controller {
 
 	public function __construct(){
 
 		$this->middleware('aux');
 
 	}
-
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -25,8 +23,10 @@ class EspeciesController extends Controller {
 	 */
 	public function index()
 	{
-		$especies = Especie::paginate(10);
-		return View::make('especies.index')->with('especies', $especies);
+		
+		$tipoproductos = Tipoproducto::paginate(10);
+		return View::make('tipoproductos.index')->with('tipoproductos', $tipoproductos);
+
 	}
 
 	/**
@@ -37,7 +37,7 @@ class EspeciesController extends Controller {
 	public function create()
 	{
 		
-		return View::make('especies.create');
+		return View::make('tipoproductos.create');
 
 	}
 
@@ -51,17 +51,17 @@ class EspeciesController extends Controller {
 		
 		$this->validate($request,[
 
-			'especie' => 'required|min:4|max:255|unique:especies'
+			'tipo' => 'required|min:4|max:255'
 
 			]);
 
-		Especie::create([
+		Tipoproducto::create([
 
-			'especie' => $request['especie']
+			'especie' => $request['tipo']
 
 			]);
 
-		return redirect('especies/create') -> with('mensagge', 'Especie registrada'); 
+		return redirect('tipoproductos/create') -> with('mensagge', 'Tipo de producto registrado');
 
 	}
 
@@ -74,8 +74,8 @@ class EspeciesController extends Controller {
 	public function show($id)
 	{
 		
-		$especie = Especie::where('id', '=', $id)->first();
-		return View::make('especies.show')->with('especie', $especie);
+		$tipoproducto = Tipoproducto::where('id',  '=', $id)->first();
+		return View::make('tipoproductos.show')->with('tipoproducto', $tipoproducto);
 
 	}
 
@@ -88,8 +88,8 @@ class EspeciesController extends Controller {
 	public function edit($id)
 	{
 		
-		$especie = Especie::where('id', '=', $id)->first();
-		return View::make('especies.edit')->with('especie', $especie);
+		$tipoproducto = Tipoproducto::where('id',  '=', $id)->first();
+		return View::make('tipoproductos.edit')->with('tipoproducto', $tipoproducto);
 
 	}
 
@@ -101,20 +101,20 @@ class EspeciesController extends Controller {
 	 */
 	public function update($id, Request $request)
 	{
-		
+	
 		$this->validate($request,[
 
-			'especie' => 'required|min:4|max:255|unique:especies,especie,'.$id.''
+			'tipo' => 'required|min:4|max:255'
 
 			]);
 
-		Especie::where('id', '=', $id)->update([
+		Tipoproducto::where('id', '=', $id)->update([
 
-			'especie' => $request['especie']
+			'especie' => $request['tipo']
 
 			]);
 
-		return redirect('especies/'.$id.'/edit') -> with('mensagge', 'Especie editada');
+		return redirect('tipoproductos/'.$id.'/edit') -> with('mensagge', 'Tipo de producto editado');
 
 	}
 
@@ -129,7 +129,7 @@ class EspeciesController extends Controller {
 		
 		try {
 
-			$especie = Especie::findOrFail($id);
+			$tipoproducto = Tipoproducto::findOrFail($id);
 			
 		} catch (Exception $e) {
 
@@ -137,24 +137,14 @@ class EspeciesController extends Controller {
 			
 		}
 
-		if ($destroy = $especie -> delete()) {
+		if ($destroy = $tipoproducto -> delete()) {
 			
-			return Redirect::route('especies.index') -> with('mensagge_delete', 'Especie eliminada');
+			return Redirect::route('tipoproducto.index') -> with('mensagge_delete', 'Tipo de producto eliminado');
 
 		}else{
 
 			return Response::view('errors/404', array(), 400);
 		}
-
-	}
-
-	public function razas($id){
-
-		$especie = Especie::find($id);
-		$razas = $especie->razas()->paginate(10);
-
-
-		return View::make('especies.razas',['especie' => $especie,  'razas' => $razas]);
 
 	}
 

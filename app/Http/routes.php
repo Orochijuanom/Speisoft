@@ -33,3 +33,7 @@ Route::resource('/razas', 'RazasController');
 Route::resource('/mascotas', 'MascotasController');
 
 Route::resource('/sedes', 'SedesController');
+
+Route::resource('/proveedores', 'ProveedoresController');
+
+Route::resource('/tipo_productos', 'TipoproductosController');
