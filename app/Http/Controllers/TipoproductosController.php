@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Tipoproducto;
 use View;
-use redirect;
+use Redirect;
 
 class TipoproductosController extends Controller {
 
@@ -57,11 +57,11 @@ class TipoproductosController extends Controller {
 
 		Tipoproducto::create([
 
-			'especie' => $request['tipo']
+			'tipo' => $request['tipo']
 
 			]);
 
-		return redirect('tipoproductos/create') -> with('mensagge', 'Tipo de producto registrado');
+		return redirect('tipo_productos/create') -> with('mensagge', 'Tipo de producto registrado');
 
 	}
 
@@ -110,11 +110,11 @@ class TipoproductosController extends Controller {
 
 		Tipoproducto::where('id', '=', $id)->update([
 
-			'especie' => $request['tipo']
+			'tipo' => $request['tipo']
 
 			]);
 
-		return redirect('tipoproductos/'.$id.'/edit') -> with('mensagge', 'Tipo de producto editado');
+		return redirect('tipo_productos/'.$id.'/edit') -> with('mensagge', 'Tipo de producto editado');
 
 	}
 
@@ -139,7 +139,7 @@ class TipoproductosController extends Controller {
 
 		if ($destroy = $tipoproducto -> delete()) {
 			
-			return Redirect::route('tipoproducto.index') -> with('mensagge_delete', 'Tipo de producto eliminado');
+			return Redirect::route('tipoproductos.index') -> with('mensagge_delete', 'Tipo de producto eliminado');
 
 		}else{
 

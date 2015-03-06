@@ -29,7 +29,6 @@ class CreateMascotasTable extends Migration {
 			$table->string('finzootecnico')->nullable();
 			$table->string('entorno', 100)->nullable();
 			$table->string('nutricion', 100)->nullable();
-			$table->string('estilovida', 50)->nullable();
 			$table->date('nacimiento')->nullable();
 			$table->boolean('recordatoriocumple')->nullable();
 			$table->integer('cliente_id')->unsigned();

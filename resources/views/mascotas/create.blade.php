@@ -126,7 +126,15 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label">Pelaje</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="pelaje" value="{{ old('pelaje') }}">
+									<select class="form-control" name="pelaje">
+
+										<option value="Largo" @if(old('pelaje')=='Largo') selected @endif >Largo</option>
+										<option value="Corto" @if(old('pelaje')=='Corto') selected @endif>Corto</option>
+										<option value="Medio" @if(old('pelaje')=='Medio') selected @endif>Medio</option>
+										<option value="Alambre" @if(old('pelaje')=='Alambre')  @endif>Alambre</option>
+										<option value="Liso" @if(old('pelaje')=='Liso') selected @endif>Liso</option>
+
+									</select>
 								</div>
 							</div>
 
@@ -161,14 +169,28 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label">Fin zootecnico</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="finzootecnico" value="{{ old('finzootecnico') }}">
+									<select class="form-control" name="finzootecnico">
+
+										<option value="Trabajo" @if(old('finzootecnico')=='Trabajo') selected @endif>Trabajo</option>
+										<option value="Compania" @if(old('finzootecnico')=='Compania') selected @endif>Compañia</option>
+										<option value="Seguridad" @if(old('finzootecnico')=='Seguridad') selected @endif>Seguridad</option>
+										<option value="Reproduccion" @if(old('finzootecnico')=='Reproduccion') selected @endif>Reproducción</option>
+
+									</select>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-4 control-label">Entorno</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="entorno" value="{{ old('entorno') }}">
+									<select class="form-control" name="entorno">
+
+										<option value="Casa" @if(old('entorno')=='Casa') selected @endif>Casa</option>
+										<option value="Finca" @if(old('entorno')=='Finca') selected @endif>Finca</option>
+										<option value="Caniles" @if(old('entorno')=='Caniles') selected @endif>Caniles</option>
+										<option value="Apartamento" @if(old('entorno')=='Apartamento') selected @endif>Apartamento</option>
+
+									</select>
 								</div>
 							</div>
 
@@ -176,13 +198,6 @@
 								<label class="col-md-4 control-label">Nutrición</label>
 								<div class="col-md-6">
 									<input type="text" class="form-control" name="nutricion" value="{{ old('nutricion') }}">
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label class="col-md-4 control-label">Estilo de vida</label>
-								<div class="col-md-6">
-									<input type="text" class="form-control" name="estilovida" value="{{ old('estilovida') }}">
 								</div>
 							</div>
 

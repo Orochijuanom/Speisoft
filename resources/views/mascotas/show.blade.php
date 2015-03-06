@@ -125,9 +125,17 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label">Pelaje</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="pelaje" value="{{ $mascota->pelaje }}"  disabled>
+									<select class="form-control" name="pelaje" disabled>
+
+										<option value="Largo" @if( $mascota->pelaje=='Largo') selected @endif >Largo</option>
+										<option value="Corto" @if($mascota->pelaje=='Corto') selected @endif>Corto</option>
+										<option value="Medio" @if($mascota->pelaje=='Medio') selected @endif>Medio</option>
+										<option value="Alambre" @if($mascota->pelaje=='Alambre') selected @endif>Alambre</option>
+										<option value="Liso" @if($mascota->pelaje=='Liso') selected @endif>Liso</option>
+
+									</select>
 								</div>
-							</div>
+							</div>>
 
 							<div class="form-group">
 								<label class="col-md-4 control-label">Cicatrices</label>
@@ -160,14 +168,28 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label">Fin zootecnico</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="finzootecnico" value="{{ $mascota->finzootecnico }}" disabled>
+									<select class="form-control" name="finzootecnico" disabled>
+
+										<option value="Trabajo" @if( $mascota->finzootecnico=='Trabajo') selected @endif>Trabajo</option>
+										<option value="Compania" @if($mascota->finzootecnico=='Compania') selected @endif>Compañia</option>
+										<option value="Seguridad" @if($mascota->finzootecnico=='Seguridad') selected @endif>Seguridad</option>
+										<option value="Reproduccion" @if($mascota->finzootecnico=='Reproduccion') selected @endif>Reproducción</option>
+
+									</select>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-4 control-label">Entorno</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control" name="entorno" value="{{ $mascota->entorno }}" disabled>
+									<select class="form-control" name="entorno" disabled>
+
+										<option value="Casa" @if($mascota->entorno=='Casa') selected @endif>Casa</option>
+										<option value="Finca" @if($mascota->entorno=='Finca') selected @endif>Finca</option>
+										<option value="Caniles" @if($mascota->entorno=='Caniles') selected @endif>Caniles</option>
+										<option value="Apartamento" @if($mascota->entorno=='Apartamento') selected @endif>Apartamento</option>
+
+									</select>
 								</div>
 							</div>
 
@@ -175,13 +197,6 @@
 								<label class="col-md-4 control-label">Nutrición</label>
 								<div class="col-md-6">
 									<input type="text" class="form-control" name="nutricion" value="{{ $mascota->nutricion }}" disabled>
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label class="col-md-4 control-label">Estilo de vida</label>
-								<div class="col-md-6">
-									<input type="text" class="form-control" name="estilovida" value="{{ $mascota->estilovida }}" disabled>
 								</div>
 							</div>
 

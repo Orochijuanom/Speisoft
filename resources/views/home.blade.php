@@ -14,6 +14,9 @@
 					<a href="/razas">ruta razas</a> <br>
 					<a href="/mascotas">rutas mascotas</a> <br>
 					<a href="/sedes">rutas sedes</a> <br>
+					<a href="/proveedores">ruta proveedores</a><br>
+					<a href="/tipo_productos">ruta tipo productos</a><br>
+					<a href="/productos">ruta productos</a>
 				</div>
 			</div>
 		</div>

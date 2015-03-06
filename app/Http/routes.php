@@ -37,3 +37,5 @@ Route::resource('/sedes', 'SedesController');
 Route::resource('/proveedores', 'ProveedoresController');
 
 Route::resource('/tipo_productos', 'TipoproductosController');
+
+Route::resource('/productos', 'ProductosController');

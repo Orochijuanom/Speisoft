@@ -70,7 +70,6 @@ class MascotasController extends Controller {
 			'finzootecnico' => 'max:255',
 			'entorno' => 'max:100',
 			'nutricion' => 'max:100',
-			'estilovida' => 'max:50',
 			'nacimiento' => 'date|required_with:recordatoriocumple',
 			'recordatoriocumple' => 'boolean|required_with:nacimiento',
 
@@ -94,7 +93,6 @@ class MascotasController extends Controller {
 			'finzootecnico' => $request['finzootecnico'],
 			'entorno' => $request['entorno'],
 			'nutricion' => $request['nutricion'],
-			'estilovida' => $request['estilovida'],
 			'nacimiento' => $request['nacimiento'],
 			'recordatoriocumple' => $request['recordatoriocumple']
 
@@ -161,7 +159,6 @@ class MascotasController extends Controller {
 			'finzootecnico' => 'max:255',
 			'entorno' => 'max:100',
 			'nutricion' => 'max:100',
-			'estilovida' => 'max:50',
 			'nacimiento' => 'date|required_with:recordatoriocumple',
 			'recordatoriocumple' => 'boolean|required_with:nacimiento'
 
@@ -184,7 +181,6 @@ class MascotasController extends Controller {
 			'finzootecnico' => $request['finzootecnico'],
 			'entorno' => $request['entorno'],
 			'nutricion' => $request['nutricion'],
-			'estilovida' => $request['estilovida'],
 			'nacimiento' => $request['nacimiento'],
 			'recordatoriocumple' => $request['recordatoriocumple']
 

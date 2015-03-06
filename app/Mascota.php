@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Mascota extends Model {
 
-	protected $fillable = ['nombre', 'raza_id', 'sexo', 'peso', 'alzada', 'color', 'pelaje', 'cicatrices', 'cxesteticas', 'tatuajes', 'condcorporal', 'finzootecnico', 'entorno', 'nutricion', 'estilovida', 'nacimiento', 'recordatoriocumple', 'cliente_id'];
+	protected $fillable = ['nombre', 'raza_id', 'sexo', 'peso', 'alzada', 'color', 'pelaje', 'cicatrices', 'cxesteticas', 'tatuajes', 'condcorporal', 'finzootecnico', 'entorno', 'nutricion', 'nacimiento', 'recordatoriocumple', 'cliente_id'];
 
 	public function razas()
 	{
