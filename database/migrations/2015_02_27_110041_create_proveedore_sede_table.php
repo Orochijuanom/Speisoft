@@ -28,6 +28,9 @@ class CreateProveedoreSedeTable extends Migration {
 				  ->onDelete('restrict')
 				  ->onUpdate('no action');
 
+			$table->unique(['proveedore_id', 'sede_id']); 
+
+
 		});
 	}
 

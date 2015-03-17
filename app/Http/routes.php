@@ -34,8 +34,12 @@ Route::resource('/mascotas', 'MascotasController');
 
 Route::resource('/sedes', 'SedesController');
 
+Route::get('/proveedores/{proveedores}/productos', ['as' => 'proveedores.productos', 'uses' => 'ProveedoresController@productos']);
 Route::resource('/proveedores', 'ProveedoresController');
 
+Route::get('/tipo_productos/{tipo_productos}/productos', ['as' => 'tipo_productos.productos', 'uses' => 'TipoproductosController@productos']);
 Route::resource('/tipo_productos', 'TipoproductosController');
+
+Route::resource('/producto_proveedor', 'Productoproveedores', ['only' =>['create', 'store', 'destroy']]);
 
 Route::resource('/productos', 'ProductosController');

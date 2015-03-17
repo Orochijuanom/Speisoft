@@ -28,6 +28,9 @@ class CreateProductoProveedoreTable extends Migration {
 				  ->onDelete('restrict')
 				  ->onUpdate('no action');
 
+		   	$table->unique(['producto_id', 'proveedore_id']); 
+
+
 		});
 	}
 

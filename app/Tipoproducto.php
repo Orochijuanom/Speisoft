@@ -8,7 +8,7 @@ class Tipoproducto extends Model {
 
 	public function productos(){
 
-		return $this->hasMany('App\Producto', 'producto_id', 'id');
+		return $this->hasMany('App\Producto', 'tipoproducto_id', 'id');
 
 	}
 

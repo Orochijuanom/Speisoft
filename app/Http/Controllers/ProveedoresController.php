@@ -164,4 +164,13 @@ class ProveedoresController extends Controller {
 
 	}
 
+	public function productos($id){
+
+		$proveedor = Proveedore::find($id);
+		$productos = $proveedor->productos()->paginate(10);
+
+		return View::make('proveedores.productos', ['proveedor' => $proveedor, 'productos' => $productos]);
+
+	}
+
 }

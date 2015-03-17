@@ -148,4 +148,13 @@ class TipoproductosController extends Controller {
 
 	}
 
+	public function productos($id){
+
+		$tipoproducto = Tipoproducto::find($id);
+		$productos = $tipoproducto->productos()->paginate(10);
+
+		return View::make('tipoproductos.productos', ['tipoproducto' => $tipoproducto, 'productos' => $productos]);
+
+	}
+
 }

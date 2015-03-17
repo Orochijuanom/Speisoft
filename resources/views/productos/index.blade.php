@@ -20,8 +20,8 @@
 								<thead>
 									<tr>
 										<th>Producto</th>
-										<th>Tipo de producto</th>
 										<th>Proveedores</th>
+										<th>Tipo de producto</th>
 										<th>Eliminar</th>
 									</tr>
 								</thead>

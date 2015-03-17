@@ -30,8 +30,8 @@
 
 										<tr>
 											<td data-title='Tipo'><a href="tipo_productos/{{$tipoproducto->id}}">{{$tipoproducto->tipo}}</a></td>
-											<td data-title='Proveedores'><a href="tipoproductos/{{$tipoproducto->id}}/proveedores">Ver proveedores</a></td>
-											<td data-title='Producto'><a href="tipoproductos/{{$tipoproducto->id}}/productos">Ver productos</a></td>
+											<td data-title='Proveedores'><a href="tipo_productos/{{$tipoproducto->id}}/proveedores">Ver proveedores</a></td>
+											<td data-title='Producto'><a href="tipo_productos/{{$tipoproducto->id}}/productos">Ver productos</a></td>
 											<td data-title='Eliminar'>
 												<form action='/tipo_productos/{{$tipoproducto->id}}' method='post'>
 
