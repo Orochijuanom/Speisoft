@@ -10,8 +10,14 @@ use App\Proveedore;
 use View;
 use Redirect;
 
+
 class Productoproveedores extends Controller {
 
+	public function __construct(){
+
+		$this->middleware('aux');
+
+	}
 	
 	/**
 	 * Show the form for creating a new resource.
@@ -33,45 +39,35 @@ class Productoproveedores extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
 		
+		$this->validate($request,[
 
+			'producto_id' => 'required',
+			'proveedore_id' => 'required'
+
+			]);
+
+		
+		try {
+
+				$proveedor = Proveedore::findOrFail($request['proveedore_id']);
+				
+			} catch (Exception $e) {
+
+				return Response::view('errors/404', array(), 404);
+				
+			}
+
+		$proveedor->productos()->attach($request['producto_id']);
+
+		return redirect('producto_proveedor/create') -> with('mensagge', 'Producto asociado al proveedor');
+		
 
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
+	
 
 	/**
 	 * Remove the specified resource from storage.
@@ -79,9 +75,29 @@ class Productoproveedores extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function detachproducto($id)
 	{
-		//
+		
+		try {
+
+				$proveedor = Proveedore::findOrFail($id);
+				
+			} catch (Exception $e) {
+
+				return Response::view('errors/404', array(), 404);
+				
+			}
+
+			if($proveedor->productos()->detach()){
+
+				return Redirect::route('razas.index') -> with('mensagge_delete', 'raza eliminado');
+
+			}else{
+
+				return Response::view('errors/400', array(), 400);
+
+			}
+
 	}
 
 }

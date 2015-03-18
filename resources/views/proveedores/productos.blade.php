@@ -28,10 +28,10 @@
 									@foreach ($productos as $producto)
 
 										<tr>
-											<td data-title='Prpducto'><a href="/productos/{{$producto->id}}">{{$producto->producto}}</a></td>
+											<td data-title='Producto'><a href="/productos/{{$producto->id}}">{{$producto->producto}}</a></td>
 											<td data-title='Tipo de producto'>{{$producto->tipoproductos->tipo}}</td>
 											<td data-title='Eliminar'>
-												<form action='/productos/{{$producto->id}}' method='post'>
+												<form action='/producto_proveedor/{{$producto->id}}' method='post'>
 
 													<input name='_method' type='hidden' value='DELETE'>
 													<input name='_token' type='hidden' value='{{csrf_token()}}'>

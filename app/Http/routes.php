@@ -40,6 +40,7 @@ Route::resource('/proveedores', 'ProveedoresController');
 Route::get('/tipo_productos/{tipo_productos}/productos', ['as' => 'tipo_productos.productos', 'uses' => 'TipoproductosController@productos']);
 Route::resource('/tipo_productos', 'TipoproductosController');
 
-Route::resource('/producto_proveedor', 'Productoproveedores', ['only' =>['create', 'store', 'destroy']]);
+Route::delete('/producto_proveedor/{producto}', ['as' => 'tipo_productos.detachproducto', 'uses' => 'TipoproductosController@detachproducto']);
+Route::resource('/producto_proveedor', 'Productoproveedores', ['only' =>['create', 'store']]);
 
 Route::resource('/productos', 'ProductosController');

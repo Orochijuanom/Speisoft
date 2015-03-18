@@ -25,22 +25,22 @@
 							</div>
 						@endif
 
-						<form class="form-horizontal" role="form" method="POST" action="/razas">
+						<form class="form-horizontal" role="form" method="POST" action="/producto_proveedor">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 							<div class="form-group">
 								<label class="col-md-4 control-label">Proveedor</label>
 								<div class="col-md-6">
 
-									<select class="form-control" name="proveedor_id">
+									<select class="form-control" name="proveedore_id">
 
-										@foreach ($proveedores as $proveedor)
-											@if (old('proveedor_id') == $proveedor->id)
+										@foreach ($proveedores as $proveedore)
+											@if (old('proveedore_id') == $proveedore->id)
 											
-												<option value="{{$proveedor -> id}}" selected>{{$proveedor->nombre}}</option>
+												<option value="{{$proveedore -> id}}" selected>{{$proveedore->nombre}}</option>
 											@else
 
-												<option value="{{$proveedor -> id}}">{{$proveedor->nombre}}</option>
+												<option value="{{$proveedore -> id}}">{{$proveedore->nombre}}</option>
 
 											@endif
 										@endforeach
