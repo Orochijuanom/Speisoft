@@ -9,6 +9,7 @@ use App\Producto;
 use App\Proveedore;
 use View;
 use Redirect;
+use Response;
 
 
 class Productoproveedores extends Controller {
@@ -75,12 +76,12 @@ class Productoproveedores extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function detachproducto($id)
+	public function detachproducto($proveedore_id, $producto_id)
 	{
 		
 		try {
 
-				$proveedor = Proveedore::findOrFail($id);
+				$proveedor = Proveedore::findOrFail($proveedore_id);
 				
 			} catch (Exception $e) {
 
@@ -88,9 +89,9 @@ class Productoproveedores extends Controller {
 				
 			}
 
-			if($proveedor->productos()->detach()){
+			if($proveedor->productos()->detach($producto_id)){
 
-				return Redirect::route('razas.index') -> with('mensagge_delete', 'raza eliminado');
+				return Redirect::route('proveedores.productos',[$proveedore_id]) -> with('mensagge_delete', 'Producto desvinculado del proveedor');
 
 			}else{
 

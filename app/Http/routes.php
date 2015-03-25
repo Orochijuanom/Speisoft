@@ -35,12 +35,13 @@ Route::resource('/mascotas', 'MascotasController');
 Route::resource('/sedes', 'SedesController');
 
 Route::get('/proveedores/{proveedores}/productos', ['as' => 'proveedores.productos', 'uses' => 'ProveedoresController@productos']);
+Route::get('/proveedores/{proveedores}/tipo_productos',['as' => 'proveedores.tipo_productos', 'uses' => 'ProveedoresController@tipo_productos']);
 Route::resource('/proveedores', 'ProveedoresController');
 
 Route::get('/tipo_productos/{tipo_productos}/productos', ['as' => 'tipo_productos.productos', 'uses' => 'TipoproductosController@productos']);
 Route::resource('/tipo_productos', 'TipoproductosController');
 
-Route::delete('/producto_proveedor/{producto}', ['as' => 'tipo_productos.detachproducto', 'uses' => 'TipoproductosController@detachproducto']);
+Route::delete('/producto_proveedor/proveedor/{proveedor}/producto/{producto}', ['as' => 'tipo_productos.detachproducto', 'uses' => 'Productoproveedores@detachproducto']);
 Route::resource('/producto_proveedor', 'Productoproveedores', ['only' =>['create', 'store']]);
 
 Route::resource('/productos', 'ProductosController');

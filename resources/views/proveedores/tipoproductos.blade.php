@@ -14,29 +14,29 @@
 						</div>
 					@endif
 
-					@if(count($productos)>0)
+					@if(count($tipoproductos)>0)
 						<section id='no-more-tables'>
 							<table class='table table-responsive'>
 								<thead>
 									<tr>
-										<th>Producto</th>
-										<th>Tipo de producto</th>
+										<th>Tipo</th>
+										<th>Productos</th>
 										<th>Eliminar</th>
 									</tr>
 								</thead>
 								<tbody>
-									@foreach ($productos as $producto)
+									@foreach ($tipoproductos as $tipoproducto)
 
 										<tr>
-											<td data-title='Producto'><a href="/productos/{{$producto->producto_id}}">{{$producto->producto}}</a></td>
-											<td data-title='Tipo de producto'>{{$producto->tipoproductos->tipo}}</td>
+											<td data-title='Tipo'><a href="/tipo_productos/{{$tipoproducto->id}}">{{$tipoproducto->tipo}}</a></td>
+											<td data-title='Producto'><a href="/tipo_productos/{{$tipoproducto->id}}/productos">Ver productos</a></td>
 											<td data-title='Eliminar'>
-												<form action='/producto_proveedor/proveedor/{{$proveedor->id}}/producto/{{$producto->producto_id}}' method='post'>
+												<form action='/tipo_productos/{{$tipoproducto->id}}' method='post'>
 
 													<input name='_method' type='hidden' value='DELETE'>
 													<input name='_token' type='hidden' value='{{csrf_token()}}'>
 													<button type='submit' class="btn btn-danger">
-														Desvincular Producto del proveedor
+														Eliminar Tipo de producto
 													</button>
 												</form>
 											</td>
@@ -46,11 +46,11 @@
 								</tbody>
 
 							</table>
-							{!!$productos->render()!!}
+							{!!$tipoproductos->render()!!}
 						</section>
 					@else
 
-						<p class='alert alert-info'><strong>Whoops!</strong> No se encuetran productos relacionados a este proveedor en el sistema.</p>
+						<p class='alert alert-info'><strong>Whoops!</strong> No se encuetran tipos de productos relacionados a este proveedor en el sistema.</p>
 
 					@endif
 

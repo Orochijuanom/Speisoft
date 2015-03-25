@@ -18,6 +18,7 @@ class Proveedore extends Model {
 
 	}
 
+
 	public $timestamps = false;
 
 	protected $table = 'proveedores';

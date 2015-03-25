@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Proveedore;
+use App\Tipoproducto;
 use View;
 use Redirect;
 
@@ -170,6 +171,16 @@ class ProveedoresController extends Controller {
 		$productos = $proveedor->productos()->paginate(10);
 
 		return View::make('proveedores.productos', ['proveedor' => $proveedor, 'productos' => $productos]);
+
+	}
+
+	public function tipo_productos($id){
+
+		$proveedor = Proveedore::find($id);
+		$tipoproducto_id = $proveedor->productos->lists('tipoproducto_id');
+		$tipoproductos = Tipoproducto::whereIn('id',$tipoproducto_id)->paginate(10);
+
+		return View::make('proveedores.tipoproductos', ['proveedor' => $proveedor, 'tipoproductos' => $tipoproductos]);
 
 	}
 
