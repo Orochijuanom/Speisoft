@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Tipoproducto;
+use App\Producto;
+use App\Proveedore;
 use View;
 use Redirect;
 
@@ -156,5 +158,31 @@ class TipoproductosController extends Controller {
 		return View::make('tipoproductos.productos', ['tipoproducto' => $tipoproducto, 'productos' => $productos]);
 
 	}
+
+	public function proveedores($id){
+
+		$tipoproducto = Tipoproducto::find($id);
+//		$productos = Producto::with('proveedores')->where('tipoproducto_id', '=', $id)->get();
+		
+
+//		return $productos;
+
+		$proveedores = array();
+
+		foreach (Producto::where('tipoproducto_id', '=', $id)->get() as $producto) {
+			
+			foreach ($producto->proveedores as $proveedore) {
+				
+				$proveedores[] = $proveedore;
+
+			}
+			
+		}
+
+		return $proveedores;
+
+	}	
+
+		
 
 }

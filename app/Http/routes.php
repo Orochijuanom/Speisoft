@@ -39,6 +39,7 @@ Route::get('/proveedores/{proveedores}/tipo_productos',['as' => 'proveedores.tip
 Route::resource('/proveedores', 'ProveedoresController');
 
 Route::get('/tipo_productos/{tipo_productos}/productos', ['as' => 'tipo_productos.productos', 'uses' => 'TipoproductosController@productos']);
+Route::get('/tipo_productos/{tipo_productos}/proveedores', ['as' => 'tipo_productos.proveedores', 'uses' => 'TipoproductosController@proveedores']);
 Route::resource('/tipo_productos', 'TipoproductosController');
 
 Route::delete('/producto_proveedor/proveedor/{proveedor}/producto/{producto}', ['as' => 'tipo_productos.detachproducto', 'uses' => 'Productoproveedores@detachproducto']);
