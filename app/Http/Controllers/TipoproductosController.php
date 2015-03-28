@@ -162,24 +162,15 @@ class TipoproductosController extends Controller {
 	public function proveedores($id){
 
 		$tipoproducto = Tipoproducto::find($id);
-//		$productos = Producto::with('proveedores')->where('tipoproducto_id', '=', $id)->get();
-		
 
-//		return $productos;
+		$proveedores = Proveedore::whereHas('productos', function($q) use ($id){
 
-		$proveedores = array();
+			$q->where('tipoproducto_id', '=', $id);
 
-		foreach (Producto::where('tipoproducto_id', '=', $id)->get() as $producto) {
-			
-			foreach ($producto->proveedores as $proveedore) {
-				
-				$proveedores[] = $proveedore;
+		})->paginate(10);
 
-			}
-			
-		}
+		return View::make('tipoproductos.proveedores',['tipoproducto' => $tipoproducto, 'proveedores' => $proveedores]);
 
-		return $proveedores;
 
 	}	
 

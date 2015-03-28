@@ -14,29 +14,37 @@
 						</div>
 					@endif
 
-					@if(count($productos)>0)
+					@if(count($proveedores)>0)
 						<section id='no-more-tables'>
 							<table class='table table-responsive'>
 								<thead>
 									<tr>
-										<th>Producto</th>
-										<th>Proveedores</th>
+										<th>Nombre</th>
+										<th>Nit</th>
+										<th>Telefono</th>
+										<th>Celular</th>
+										<th>Email</th>
+										<th>Productos</th>
 										<th>Eliminar</th>
 									</tr>
 								</thead>
 								<tbody>
-									@foreach ($productos as $producto)
+									@foreach ($proveedores as $proveedor)
 
 										<tr>
-											<td data-title='Prpducto'><a href="/productos/{{$producto->id}}">{{$producto->producto}}</a></td>
-											<td data-title='Proveedores'><a href="/productos/{{$producto->id}}/proveedores">Ver proveedores</a></td>
+											<td data-title='Nombre'><a href="/proveedores/{{$proveedor->id}}">{{$proveedor->nombre}}</a></td>
+											<td data-title='Nit'>{{$proveedor->nit}}</td>
+											<td data-title='Telefono'>{{$proveedor->telefono}}</td>
+											<td data-title='Celular'>{{$proveedor->celular}}</td>
+											<td data-title='email'>{{$proveedor->email}}</td>
+											<td data-title='Productos'><a href="/proveedores/{{$proveedor->id}}/productos">Ver productos</a></td>
 											<td data-title='Eliminar'>
-												<form action='/productos/{{$producto->id}}' method='post'>
+												<form action='/proveedores/{{$proveedor->id}}' method='post'>
 
 													<input name='_method' type='hidden' value='DELETE'>
 													<input name='_token' type='hidden' value='{{csrf_token()}}'>
 													<button type='submit' class="btn btn-danger">
-														Eliminar Producto
+														Eliminar Proveedor
 													</button>
 												</form>
 											</td>
@@ -46,15 +54,15 @@
 								</tbody>
 
 							</table>
-							{!!$productos->render()!!}
+							{!!$proveedores->render()!!}
 						</section>
 					@else
 
-						<p class='alert alert-info'><strong>Whoops!</strong> No se encuetran productos relacionados a este tipo de producto en el sistema.</p>
+						<p class='alert alert-info'><strong>Whoops!</strong> No se encuetran proveedores relacionados a este tipo de producto en el sistema.</p>
 
 					@endif
 
-					{!!link_to('productos/create','Añadir productos')!!}
+					{!!link_to('proveedores/create','Añadir proveedores')!!}
 				</div>
 			</div>
 		</div>
