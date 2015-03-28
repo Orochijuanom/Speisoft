@@ -45,4 +45,5 @@ Route::resource('/tipo_productos', 'TipoproductosController');
 Route::delete('/producto_proveedor/proveedor/{proveedor}/producto/{producto}', ['as' => 'tipo_productos.detachproducto', 'uses' => 'Productoproveedores@detachproducto']);
 Route::resource('/producto_proveedor', 'Productoproveedores', ['only' =>['create', 'store']]);
 
+Route::get('/productos/{productos}/proveedores', ['as' => 'productos.proveedores', 'uses' => 'ProductosController@proveedores']);
 Route::resource('/productos', 'ProductosController');
