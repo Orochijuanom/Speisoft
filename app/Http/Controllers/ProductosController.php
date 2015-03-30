@@ -157,4 +157,14 @@ class ProductosController extends Controller {
 
 	}
 
+	public function proveedores($id)
+	{
+
+		$producto = Producto::find($id);
+		$proveedores = $producto->proveedores()->paginate(10);
+
+		return View::make('productos.proveedores', ['producto' => $producto, 'proveedores' => $proveedores]);
+
+	}
+
 }

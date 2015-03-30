@@ -101,4 +101,30 @@ class Productoproveedores extends Controller {
 
 	}
 
+	public function detachproveedor($producto_id, $proveedore_id)
+	{
+		
+		try {
+
+				$proveedor = Proveedore::findOrFail($proveedore_id);
+				
+			} catch (Exception $e) {
+
+				return Response::view('errors/404', array(), 404);
+				
+			}
+
+			if($proveedor->productos()->detach($producto_id)){
+
+				return Redirect::route('productos.proveedores',[$producto_id]) -> with('mensagge_delete', 'Producto desvinculado del proveedor');
+
+			}else{
+
+				return Response::view('errors/400', array(), 400);
+
+			}
+
+	}
+
+
 }

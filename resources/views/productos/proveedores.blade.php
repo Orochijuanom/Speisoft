@@ -5,7 +5,7 @@
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
-				<div class="panel-heading">{{$proveedor->nombre}}</div>
+				<div class="panel-heading">{{$producto->producto}}</div>
 				<div class="panel-body">
 					@if (Session::get('mensagge_delete'))
 						<div class="alert alert-success">
@@ -14,24 +14,32 @@
 						</div>
 					@endif
 
-					@if(count($productos)>0)
+					@if(count($proveedores)>0)
 						<section id='no-more-tables'>
 							<table class='table table-responsive'>
 								<thead>
 									<tr>
-										<th>Producto</th>
-										<th>Tipo de producto</th>
+										<th>Nombre</th>
+										<th>Nit</th>
+										<th>Telefono</th>
+										<th>Celular</th>
+										<th>Email</th>
+										<th>Tipos de productos</th>
 										<th>Desvincular</th>
 									</tr>
 								</thead>
 								<tbody>
-									@foreach ($productos as $producto)
+									@foreach ($proveedores as $proveedor)
 
 										<tr>
-											<td data-title='Producto'><a href="/productos/{{$producto->producto_id}}">{{$producto->producto}}</a></td>
-											<td data-title='Tipo de producto'>{{$producto->tipoproductos->tipo}}</td>
+											<td data-title='Nombre'><a href="/proveedores/{{$proveedor->proveedore_id}}">{{$proveedor->nombre}}</a></td>
+											<td data-title='Nit'>{{$proveedor->nit}}</td>
+											<td data-title='Telefono'>{{$proveedor->telefono}}</td>
+											<td data-title='Celular'>{{$proveedor->celular}}</td>
+											<td data-title='email'>{{$proveedor->email}}</td>
+											<td data-title='Tipos de productos'><a href="/proveedores/{{$proveedor->proveedore_id}}/tipo_productos">Ver tipos de productos</a></td>
 											<td data-title='Desvincular'>
-												<form action='/producto_proveedor/proveedor/{{$proveedor->id}}/producto/{{$producto->producto_id}}' method='post'>
+												<form action='/producto_proveedor/producto/{{$producto->id}}/proveedor/{{$proveedor->proveedore_id}}' method='post'>
 
 													<input name='_method' type='hidden' value='DELETE'>
 													<input name='_token' type='hidden' value='{{csrf_token()}}'>
@@ -46,11 +54,11 @@
 								</tbody>
 
 							</table>
-							{!!$productos->render()!!}
+							{!!$proveedores->render()!!}
 						</section>
 					@else
 
-						<p class='alert alert-info'><strong>Whoops!</strong> No se encuetran productos relacionados a este proveedor en el sistema.</p>
+						<p class='alert alert-info'><strong>Whoops!</strong> No se encuetran proveedores relacionados a este producto  en el sistema.</p>
 
 					@endif
 
