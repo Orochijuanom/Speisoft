@@ -20,10 +20,13 @@
 					<div class="col-xs-6 col-md-4"><a href="/mascotas"><img src="http://www.speisoft.victorushero.com/iconos/mascotas.png" /></a><h4>Mascotas</h4></a></div>
 
 					<div class="col-xs-6 col-md-4"><a href="/sedes"><img src="http://www.speisoft.victorushero.com/iconos/sedes.png" /></a><h4>Sedes</h4></a></div>
+
+					<div class="col-xs-6 col-md-4"><a href="/proveedores"><img src="http://www.speisoft.victorushero.com/iconos/proveedores.png" /></a><h4>Proveedores</h4></a></div>
 					
-					<a href="/proveedores">Proveedores</a><br>
-					<a href="/tipo_productos">Tipo de Productos</a><br>
-					<a href="/productos">Productos</a>
+					<div class="col-xs-6 col-md-4"><a href="//tipo_productos"><img src="http://www.speisoft.victorushero.com/iconos/tipo_productos.png" /></a><h4>Tipo de Productos</h4></a></div>
+
+					<div class="col-xs-6 col-md-4"><a href="//productos"><img src="http://www.speisoft.victorushero.com/iconos/productos.png" /></a><h4>Productos</h4></a></div>
+										
 				</div>
 			</div>
 		</div>
