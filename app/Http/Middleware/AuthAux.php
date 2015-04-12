@@ -2,6 +2,7 @@
 
 use Closure;
 use Auth;
+use Response;
 
 class AuthAux {
 
