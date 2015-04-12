@@ -38,8 +38,8 @@
 	<body>
 		<div class="container">
 			<div class="content">
-				<div class="title">Laravel 5</div>
-				<div class="quote">{{ Inspiring::quote() }}</div>
+				<div class="title">SACLIVE</div>
+				<div class="quote">Software de Administración para Clínicas Veterinarias</div>
 			</div>
 		</div>
 	</body>

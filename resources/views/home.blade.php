@@ -5,18 +5,25 @@
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 			<div class="panel panel-default">
-				<div class="panel-heading">Home</div>
+				<div class="panel-heading">Administración</div>
 
-				<div class="panel-body">
-					<a href="/users">ruta users</a> <br>
-					<a href="/clientes">ruta clientes</a> <br>
-					<a href="/especies">ruta especies</a> <br>
-					<a href="/razas">ruta razas</a> <br>
-					<a href="/mascotas">rutas mascotas</a> <br>
-					<a href="/sedes">rutas sedes</a> <br>
-					<a href="/proveedores">ruta proveedores</a><br>
-					<a href="/tipo_productos">ruta tipo productos</a><br>
-					<a href="/productos">ruta productos</a>
+				<div class="panel-body" style="text-align: center">
+					
+					<div class="col-xs-6 col-md-4"><a href="/users"><img src="http://www.speisoft.victorushero.com/iconos/usuarios.png" /></a><h4>Usuarios</h4></div>
+
+					<div class="col-xs-6 col-md-4"><a href="/clientes"><img src="http://www.speisoft.victorushero.com/iconos/clientes.png" /></a><h4>Clientes</h4></div>
+
+					<div class="col-xs-6 col-md-4"><a href="/especies"><img src="http://www.speisoft.victorushero.com/iconos/especies.png" /></a><h4>Especies</h4></div>
+
+					<div class="col-xs-6 col-md-4"><a href="/razas"><img src="http://www.speisoft.victorushero.com/iconos/razas.png" /></a><h4>Razas</h4></div>
+
+					<div class="col-xs-6 col-md-4"><a href="/mascotas"><img src="http://www.speisoft.victorushero.com/iconos/mascotas.png" /></a><h4>Mascotas</h4></a></div>
+
+					<div class="col-xs-6 col-md-4"><a href="/sedes"><img src="http://www.speisoft.victorushero.com/iconos/sedes.png" /></a><h4>Sedes</h4></a></div>
+					
+					<a href="/proveedores">Proveedores</a><br>
+					<a href="/tipo_productos">Tipo de Productos</a><br>
+					<a href="/productos">Productos</a>
 				</div>
 			</div>
 		</div>
