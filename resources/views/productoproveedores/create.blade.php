@@ -18,6 +18,7 @@
 							<div class="alert alert-danger">
 								<strong>Whoops!</strong> Hubo Algunos problemas con tu entrada.<br><br>
 								<ul>
+									
 									@foreach ($errors->all() as $error)
 										<li>{{ $error }}</li>
 									@endforeach

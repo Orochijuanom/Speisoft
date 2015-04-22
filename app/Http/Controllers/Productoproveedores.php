@@ -61,7 +61,16 @@ class Productoproveedores extends Controller {
 				
 			}
 
-		$proveedor->productos()->attach($request['producto_id']);
+		try {
+
+				$proveedor->productos()->attach($request['producto_id']);
+
+			} catch (\PDOException $exception) {
+				
+				return redirect('producto_proveedor/create') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+
+			}	
+		
 
 		return redirect('producto_proveedor/create') -> with('mensagge', 'Producto asociado al proveedor');
 		

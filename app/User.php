@@ -29,7 +29,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
   		return "http://www.gravatar.com/avatar/$hash";
   	}
 
-
 	/**
 	 * The attributes that are mass assignable.
 	 *
