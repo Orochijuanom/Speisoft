@@ -75,8 +75,9 @@ class MascotasController extends Controller {
 
 			]);
 		
-
-		Mascota::create([
+		try {
+			
+			Mascota::create([
 
 			'nombre' => $request['nombre'],
 			'cliente_id' => $request['cliente_id'],
@@ -97,6 +98,13 @@ class MascotasController extends Controller {
 			'recordatoriocumple' => $request['recordatoriocumple']
 
 			]);
+
+		} catch (\PDOException $exception) {
+			
+			return redirect('mascotas/create') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+
+		}
+		
 
 		return redirect('mascotas/create') -> with('mensagge', 'Mascota registrada');
 
@@ -163,8 +171,10 @@ class MascotasController extends Controller {
 			'recordatoriocumple' => 'boolean|required_with:nacimiento'
 
 			]);
-
-		Mascota::where('id', '=', $id)->update([
+		
+		try {
+			
+			Mascota::where('id', '=', $id)->update([
 
 			'nombre' => $request['nombre'],
 			'cliente_id' => $request['cliente_id'],
@@ -186,6 +196,12 @@ class MascotasController extends Controller {
 
 			]);
 
+		} catch (\PDOException $exception) {
+			
+			return redirect('mascotas/'.$id.'/edit') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+		
+		}
+		 
 		return redirect('mascotas/'.$id.'/edit') ->with('mensagge', 'Mascota editada');
 
 
@@ -210,16 +226,19 @@ class MascotasController extends Controller {
 				
 			}
 
-			if($destroy = $mascota -> delete()){
+			try {
 
-				return Redirect::route('mascotas.index') -> with('mensagge_delete', 'Mascota eliminada');
-
-			}else{
-
-				return Response::view('errors/400', array(), 400);
+				$mascota -> delete();
+				
+			} catch (\PDOException $exception) {
+				
+				return Redirect::route('mascotas.index') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 
 			}
-	
+			
+			return Redirect::route('mascotas.index') -> with('mensagge_delete', 'Mascota eliminada');
+
+			
 
 	}
 

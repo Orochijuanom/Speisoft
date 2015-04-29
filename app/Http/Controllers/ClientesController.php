@@ -66,8 +66,10 @@ class ClientesController extends Controller {
 			'cumpleanios' => 'date'
 
 			]);
+		
+		try {
 
-		Cliente::create([
+			Cliente::create([
 
 			'nombre' => $request['nombre'],
 			'apellidos' => $request['apellidos'],
@@ -82,7 +84,13 @@ class ClientesController extends Controller {
 			'cumpleanios' => $request['cumpleanios']
 
 			]);
+			
+		} catch (\PDOException $exception) {
+			
+			return redirect('clientes/create') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 
+		}
+		
 		return redirect('clientes/create') -> with('mensagge', 'Cliente registrado');
 
 	}
@@ -137,7 +145,9 @@ class ClientesController extends Controller {
 
 			]);
 
-		Cliente::where('id', '=', $id)->update([
+		try {
+			
+			Cliente::where('id', '=', $id)->update([
 
 			'nombre' => $request['nombre'],
 			'apellidos' => $request['apellidos'],
@@ -152,6 +162,12 @@ class ClientesController extends Controller {
 			'cumpleanios' => $request['cumpleanios']
 
 			]);
+
+		}catch (\PDOException $exception) {
+			
+			return redirect('clientes/'.$id.'/edit') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+
+		}
 
 		return redirect('clientes/'.$id.'/edit') -> with('mensagge', 'Cliente editado');
 	}
@@ -174,16 +190,18 @@ class ClientesController extends Controller {
 				
 			}
 
-			if($destroy = $cliente -> delete()){
+			try {
+				
+				$cliente -> delete();
 
-				return Redirect::route('clientes.index') -> with('mensagge_delete', 'Cliente eliminado');
-
-			}else{
-
-				return Response::view('errors/400', array(), 400);
+			} catch (\PDOException $exception) {
+				
+				return Redirect::route('clientes.index') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 
 			}
-		
+			
+			return Redirect::route('clientes.index') -> with('mensagge_delete', 'Cliente eliminado');
+
 	}
 
 	public function mascotas($id)

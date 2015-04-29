@@ -57,12 +57,20 @@ class TipoproductosController extends Controller {
 
 			]);
 
-		Tipoproducto::create([
+		try {
+			
+			Tipoproducto::create([
 
 			'tipo' => $request['tipo']
 
 			]);
 
+		} catch (\PDOException $exception) {
+			
+			return redirect('tipo_productos/create') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+
+		}
+		
 		return redirect('tipo_productos/create') -> with('mensagge', 'Tipo de producto registrado');
 
 	}
@@ -110,12 +118,20 @@ class TipoproductosController extends Controller {
 
 			]);
 
-		Tipoproducto::where('id', '=', $id)->update([
+		try {
+
+			Tipoproducto::where('id', '=', $id)->update([
 
 			'tipo' => $request['tipo']
 
 			]);
+			
+		} catch (\PDOException $exception) {
+			
+			return redirect('tipo_productos/'.$id.'/edit') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 
+		}
+		
 		return redirect('tipo_productos/'.$id.'/edit') -> with('mensagge', 'Tipo de producto editado');
 
 	}
@@ -139,14 +155,18 @@ class TipoproductosController extends Controller {
 			
 		}
 
-		if ($destroy = $tipoproducto -> delete()) {
+		try {
 			
-			return Redirect::route('tipoproductos.index') -> with('mensagge_delete', 'Tipo de producto eliminado');
+			$tipoproducto -> delete();
 
-		}else{
+		} catch (\PDOException $exception) {
+			
+			return Redirect::route('tipoproductos.index') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 
-			return Response::view('errors/404', array(), 400);
 		}
+		
+			
+		return Redirect::route('tipoproductos.index') -> with('mensagge_delete', 'Tipo de producto eliminado');
 
 	}
 

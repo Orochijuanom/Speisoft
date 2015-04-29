@@ -60,7 +60,9 @@ class ProveedoresController extends Controller {
 
 			]);
 
-		Proveedore::create([
+		try {
+
+			Proveedore::create([
 
 			'nombre' => $request['nombre'],
 			'nit' => $request['nit'],
@@ -69,7 +71,13 @@ class ProveedoresController extends Controller {
 			'email' => $request['email']
 
 			]);
+			
+		} catch (\PDOException $exception) {
+			
+			return redirect('proveedores/create') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 
+		}
+		
 		return redirect('proveedores/create') -> with('mensagge', 'Proveedor registrado');
 
 	}
@@ -120,8 +128,9 @@ class ProveedoresController extends Controller {
 			'email' => 'email|required|max:255'
 
 			]);
-
-		Proveedore::where('id', '=', $id)->update([
+		try {
+			
+			Proveedore::where('id', '=', $id)->update([
 
 			'nombre' => $request['nombre'],
 			'nit' => $request['nit'],
@@ -131,6 +140,12 @@ class ProveedoresController extends Controller {
 
 			]);
 
+		} catch (\PDOException $exception) {
+			
+			return redirect('proveedores/'.$id.'/edit') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+
+		}
+		
 		return redirect('proveedores/'.$id.'/edit') -> with('mensagge', 'Proveedor editado');
 
 	}
@@ -154,14 +169,17 @@ class ProveedoresController extends Controller {
 			
 		}
 
-		if ($destroy = $proveedor -> delete()) {
+		try {
+
+			$proveedor -> delete();
 			
-			return Redirect::route('proveedores.index') -> with('mensagge_delete', 'Proveedor eliminado');
+		} catch (\PDOException $exception) {
+			
+			return Redirect::route('proveedores.index') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 
-		}else{
-
-			return Response::view('errors/404', array(), 400);
 		}
+		
+		return Redirect::route('proveedores.index') -> with('mensagge_delete', 'Proveedor eliminado');
 
 	}
 

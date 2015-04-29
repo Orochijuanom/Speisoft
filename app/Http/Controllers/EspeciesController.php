@@ -55,12 +55,21 @@ class EspeciesController extends Controller {
 
 			]);
 
-		Especie::create([
+		try {
+			
+			Especie::create([
 
 			'especie' => $request['especie']
 
 			]);
 
+
+		}catch (\PDOException $exception) {
+			
+			return redirect('especies/create') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+
+		}
+		
 		return redirect('especies/create') -> with('mensagge', 'Especie registrada'); 
 
 	}
@@ -107,12 +116,20 @@ class EspeciesController extends Controller {
 			'especie' => 'required|min:4|max:255|unique:especies,especie,'.$id.''
 
 			]);
+		try {
 
-		Especie::where('id', '=', $id)->update([
+			Especie::where('id', '=', $id)->update([
 
 			'especie' => $request['especie']
 
 			]);
+			
+		}catch (\PDOException $exception) {
+			
+			return redirect('especies/'.$id.'/edit') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+
+		}
+		
 
 		return redirect('especies/'.$id.'/edit') -> with('mensagge', 'Especie editada');
 
@@ -137,14 +154,17 @@ class EspeciesController extends Controller {
 			
 		}
 
-		if ($destroy = $especie -> delete()) {
+		try {
 			
-			return Redirect::route('especies.index') -> with('mensagge_delete', 'Especie eliminada');
+			$especie -> delete();
 
-		}else{
+		}catch (\PDOException $exception) {
+			
+			return Redirect::route('especies.index') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 
-			return Response::view('errors/404', array(), 400);
 		}
+		
+		return Redirect::route('especies.index') -> with('mensagge_delete', 'Especie eliminada');
 
 	}
 

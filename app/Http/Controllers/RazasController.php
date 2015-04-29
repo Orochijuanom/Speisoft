@@ -59,13 +59,21 @@ class RazasController extends Controller {
 
 			]);
 
-		Raza::create([
+		try {
+
+			Raza::create([
 
 			'especie_id' => $request['especie_id'],
 			'raza' => $request['raza']
 
 			]);
-		
+			
+		} catch (\PDOException $exception) {
+			
+			return redirect('razas/create') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+
+		}
+				
 		return redirect('razas/create') -> with('mensagge', 'Raza registrada');
 
 	}
@@ -113,13 +121,21 @@ class RazasController extends Controller {
 			'raza' => 'required|min:4|max:255|unique:razas,raza,'.$id.''
 
 			]);
-
-		Raza::where('id', '=', $id)->update([
+		
+		try {
+			
+			Raza::where('id', '=', $id)->update([
 
 			'especie_id' => $request['especie_id'],
 			'raza' => $request['raza']
 
 			]);
+
+		} catch (\PDOException $exception) {
+			
+			return redirect('razas/'.$id.'/edit') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+		}
+		
 
 		return redirect('razas/'.$id.'/edit') -> with('mensagge', 'Raza editada');
 
@@ -143,15 +159,18 @@ class RazasController extends Controller {
 				
 			}
 
-			if($destroy = $raza -> delete()){
+			try {
+				
+				$raza -> delete();
 
-				return Redirect::route('razas.index') -> with('mensagge_delete', 'raza eliminado');
-
-			}else{
-
-				return Response::view('errors/400', array(), 400);
-
+			} catch (\PDOException $exception) {
+				
+				return Redirect::route('razas.index') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 			}
+			
+			return Redirect::route('razas.index') -> with('mensagge_delete', 'raza eliminada');
+
+			
 	}
 
 }

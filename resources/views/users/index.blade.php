@@ -13,6 +13,18 @@
 							<br><br>			
 						</div>
 					@endif
+
+					@if (count($errors) > 0)
+							<div class="alert alert-danger">
+								<strong>Whoops!</strong> Hubo Algunos problemas con tu entrada.<br><br>
+								<ul>
+									@foreach ($errors->all() as $error)
+										<li>{{ $error }}</li>
+									@endforeach
+								</ul>
+							</div>
+					@endif
+
 					@if(count($users)>0)
 						<section id='no-more-tables'>
 							<table class='table table-responsive'>

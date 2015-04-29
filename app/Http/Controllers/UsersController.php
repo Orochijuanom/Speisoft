@@ -107,15 +107,17 @@ class UsersController extends Controller {
 				
 			}
 
-			if($destroy = $user -> delete()){
+			try {
+				
+				$user -> delete();
 
-				return Redirect::route('users.index') -> with('mensagge_delete', 'Usuario eliminado');
-
-			}else{
-
-				return Response::view('errors/400', array(), 400);
-
+			} catch (\PDOException $exception) {
+				
+				return Redirect::route('users.index') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+			
 			}
+							
+			return Redirect::route('users.index') -> with('mensagge_delete', 'Usuario eliminado');
 		
 		
 		}else{

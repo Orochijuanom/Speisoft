@@ -60,7 +60,9 @@ class SedesController extends Controller {
 
 			]);
 
-		Sede::create([
+		try {
+			
+			Sede::create([
 
 			'nombre' => $request['nombre'],
 			'direccion' => $request['direccion'],
@@ -70,6 +72,13 @@ class SedesController extends Controller {
 			'nit' => $request['nit']
 
 			]);
+
+		} catch (\PDOException $exception) {
+			
+			return redirect('sedes/create') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+
+		}
+		
 
 		return redirect('sedes/create') -> with('mensagge', 'Sede registrada');
 
@@ -123,7 +132,9 @@ class SedesController extends Controller {
 
 			]);
 
-		Sede::where('id', '=', $id)->update([
+		try {
+			
+			Sede::where('id', '=', $id)->update([
 
 			'nombre' => $request['nombre'],
 			'direccion' => $request['direccion'],
@@ -133,6 +144,13 @@ class SedesController extends Controller {
 			'nit' => $request['nit']
 
 			]);
+
+		} catch (\PDOException $exception) {
+			
+			return redirect('sedes/'.$id.'/edit') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+
+		}
+		
 
 		return redirect('sedes/'.$id.'/edit') -> with('mensagge', 'Sede editada');
 
@@ -157,15 +175,19 @@ class SedesController extends Controller {
 			
 		}
 
-		if ($destroy = $sede -> delete()) {
+		try {
 			
-			return Redirect::route('sedes.index') -> with('mensagge_delete', 'Sede eliminada');
+			$sede -> delete();
 
-		}else{
+		} catch (\PDOException $exception) {
+			
+			return Redirect::route('sedes.index') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 
-			return Response::view('errors/404', array(), 400);
 		}
+		
+			
+		return Redirect::route('sedes.index') -> with('mensagge_delete', 'Sede eliminada');
 
-	}
+		}
 
 }
