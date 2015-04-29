@@ -27,6 +27,12 @@ class CreateUsersTable extends Migration {
 				  ->onDelete('restrict')
 				  ->onUpdate('no action');
 		});
+
+	DB::table('users')->insert([
+	
+		['name' => 'Juan Sebastian Cruz Perdomo' , 'email' => 'orochijuan.nom@gmail.com' , 'rol_id' => '1']
+
+	]);	
 	}
 
 	/**
