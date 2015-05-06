@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Observers\ModelObserver;
+
 class Proveedore extends Model {
 
 	protected $fillable = ['nombre', 'nit', 'telefono', 'celular', 'email'];
@@ -17,6 +19,15 @@ class Proveedore extends Model {
 		return $this->belongsToMany('App\Sede');
 
 	}
+
+	/*llamada del observer para manejar la auditoria del modelo */
+  	public static function boot(){
+
+  		parent::boot();
+
+  		Proveedore::observe(new ModelObserver);
+  		
+  	}
 
 
 	public $timestamps = false;

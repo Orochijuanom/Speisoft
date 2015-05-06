@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Observers\ModelObserver;
+
 class Mascota extends Model {
 
 	protected $fillable = ['nombre', 'raza_id', 'sexo', 'peso', 'alzada', 'color', 'pelaje', 'cicatrices', 'cxesteticas', 'tatuajes', 'condcorporal', 'finzootecnico', 'entorno', 'nutricion', 'nacimiento', 'recordatoriocumple', 'cliente_id'];
@@ -19,6 +21,15 @@ class Mascota extends Model {
 		return $this->belongsto('App\Cliente', 'cliente_id', 'id');
 
 	}
+
+	/*llamada del observer para manejar la auditoria del modelo */
+  	public static function boot(){
+
+  		parent::boot();
+
+  		Mascota::observe(new ModelObserver);
+  		
+  	} 
 
 	public $timestamps = false;
 

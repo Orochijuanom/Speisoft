@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Observers\ModelObserver;
+
 class Producto extends Model {
 
 	protected $fillable = ['producto', 'tipoproducto_id'];
@@ -17,6 +19,15 @@ class Producto extends Model {
 		return $this->belongsToMany('App\Proveedore');
 
 	}
+
+	/*llamada del observer para manejar la auditoria del modelo */
+  	public static function boot(){
+
+  		parent::boot();
+
+  		Producto::observe(new ModelObserver);
+  		
+  	} 
 
 	public $timestamps = false;
 
