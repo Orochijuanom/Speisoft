@@ -15,7 +15,7 @@ class ModelObserver{
 
 		$audit = new AuditClass();
 
-		$audit->audit($model);
+		$audit->audit($model, 'Saved');
 
 		return True;
 		
@@ -31,7 +31,7 @@ class ModelObserver{
 
 		$audit = new AuditClass();
 
-		$audit->audit($model);
+		$audit->audit($model, 'Updated');
 		
 		return True;
 
@@ -41,7 +41,7 @@ class ModelObserver{
 
 		$audit = new AuditClass();
 
-		$audit->audit($model);
+		$audit->audit($model, 'Deleted');
 		
 		return True;
 

@@ -20,6 +20,8 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
+Route::get('/audits', 'AuditsController@index');
+
 Route::resource('/users', 'UsersController', ['only' => ['index', 'destroy']]);
 
 Route::get('/clientes/{clientes}/mascotas', ['as' => 'clientes.mascotas', 'uses' => 'ClientesController@mascotas']);

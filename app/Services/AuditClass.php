@@ -10,7 +10,7 @@ class AuditClass{
 	private $table;
 	private $ip;
 
-	public function audit($model){
+	public function audit($model, $action){
 
 		foreach ($model->getAttributes() as $attribute) {
 			
@@ -27,7 +27,7 @@ class AuditClass{
 
 		Audit::create(
 			[
-				'action' => 'Guardado '.$this->attributes,
+				'action' => $action.' - '.$this->attributes,
 				'model' => $this->table,
 				'user_id' => Auth::user()->id,
 				'fecha' => date('Y-m-d H:i:s'),

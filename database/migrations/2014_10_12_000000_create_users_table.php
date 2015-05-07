@@ -31,7 +31,8 @@ class CreateUsersTable extends Migration {
 
 	DB::table('users')->insert([
 	
-		['name' => 'Juan Sebastian Cruz Perdomo' , 'email' => 'orochijuan.nom@gmail.com' , 'rol_id' => '1']
+		['name' => 'Juan Sebastian Cruz Perdomo' , 'email' => 'orochijuan.nom@gmail.com' , 'rol_id' => '1'],
+		['name' => 'Roberto Andres Diaz Ricardo', 'email' => 'roberto@ingenieros.com', 'rol_id' => '1']
 
 	]);	
 	}
