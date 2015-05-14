@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Observers\ModelObserver;
+//use App\Observers\ModelObserver;
 
 class Raza extends Model {
 
@@ -14,13 +14,13 @@ class Raza extends Model {
 	}
 
 	/*llamada del observer para manejar la auditoria del modelo */
-  	public static function boot(){
+  	/*public static function boot(){
 
   		parent::boot();
 
   		Raza::observe(new ModelObserver);
   		
-  	}
+  	}*/
 
 	public $timestamps = false;
 

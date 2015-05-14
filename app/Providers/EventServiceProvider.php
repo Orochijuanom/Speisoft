@@ -3,6 +3,8 @@
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
+use App\Listeners\Audit;
+
 class EventServiceProvider extends ServiceProvider {
 
 	/**
@@ -11,9 +13,7 @@ class EventServiceProvider extends ServiceProvider {
 	 * @var array
 	 */
 	protected $listen = [
-		'event.name' => [
-			'EventListener',
-		],
+
 	];
 
 	/**
@@ -26,7 +26,8 @@ class EventServiceProvider extends ServiceProvider {
 	{
 		parent::boot($events);
 
-		//
+		$events->subscribe(new Audit);
+
 	}
 
 }

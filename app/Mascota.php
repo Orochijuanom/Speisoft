@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Observers\ModelObserver;
+//use App\Observers\ModelObserver;
 
 class Mascota extends Model {
 
@@ -23,14 +23,14 @@ class Mascota extends Model {
 	}
 
 	/*llamada del observer para manejar la auditoria del modelo */
-  	public static function boot(){
+  	/*public static function boot(){
 
   		parent::boot();
 
   		Mascota::observe(new ModelObserver);
   		
   	} 
-
+*/
 	public $timestamps = false;
 
 	protected $table = 'mascotas';

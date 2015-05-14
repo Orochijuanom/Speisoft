@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-use App\Observers\ModelObserver;
+//use App\Observers\ModelObserver;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
 
@@ -46,13 +46,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
   	}
 
   	/*llamada del observer para manejar la auditoria del modelo */
-  	public static function boot(){
+  	/*public static function boot(){
 
   		parent::boot();
 
   		User::observe(new ModelObserver);
   		
-  	} 
+  	} */
 
 	/**
 	 * The attributes that are mass assignable.

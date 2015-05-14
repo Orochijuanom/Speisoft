@@ -161,12 +161,12 @@ class TipoproductosController extends Controller {
 
 		} catch (\PDOException $exception) {
 			
-			return Redirect::route('tipoproductos.index') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+			return Redirect::route('tipo_productos.index') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 
 		}
 		
 			
-		return Redirect::route('tipoproductos.index') -> with('mensagge_delete', 'Tipo de producto eliminado');
+		return Redirect::route('tipo_productos.index') -> with('mensagge_delete', 'Tipo de producto eliminado');
 
 	}
 
@@ -175,7 +175,7 @@ class TipoproductosController extends Controller {
 		$tipoproducto = Tipoproducto::find($id);
 		$productos = $tipoproducto->productos()->paginate(10);
 
-		return View::make('tipoproductos.productos', ['tipoproducto' => $tipoproducto, 'productos' => $productos]);
+		return View::make('tipo_productos.productos', ['tipoproducto' => $tipoproducto, 'productos' => $productos]);
 
 	}
 

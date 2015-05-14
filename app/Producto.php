@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Observers\ModelObserver;
+//use App\Observers\ModelObserver;
 
 class Producto extends Model {
 
@@ -21,14 +21,14 @@ class Producto extends Model {
 	}
 
 	/*llamada del observer para manejar la auditoria del modelo */
-  	public static function boot(){
+  	/*public static function boot(){
 
   		parent::boot();
 
   		Producto::observe(new ModelObserver);
   		
   	} 
-
+*/
 	public $timestamps = false;
 
 	protected $table = 'productos';

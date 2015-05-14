@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Observers\ModelObserver;
+//use App\Observers\ModelObserver;
 
 class Especie extends Model {
 
@@ -14,13 +14,13 @@ class Especie extends Model {
 	}
 
 	/*llamada del observer para manejar la auditoria del modelo */
-  	public static function boot(){
+  	/*public static function boot(){
 
   		parent::boot();
 
   		Especie::observe(new ModelObserver);
   		
-  	} 
+  	} */
 
 
 	public $timestamps = false;

@@ -27,7 +27,7 @@ class AuditClass{
 
 		Audit::create(
 			[
-				'action' => $action.' - '.$this->attributes,
+				'action' => $action.' ||| '.$this->attributes,
 				'model' => $this->table,
 				'user_id' => Auth::user()->id,
 				'fecha' => date('Y-m-d H:i:s'),

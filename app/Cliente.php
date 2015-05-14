@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Observers\ModelObserver;
+//use App\Observers\ModelObserver;
 
 class Cliente extends Model {
 
@@ -15,13 +15,13 @@ class Cliente extends Model {
     }
 
     /*llamada del observer para manejar la auditoria del modelo */
-  	public static function boot(){
+  	/*public static function boot(){
 
   		parent::boot();
 
   		Cliente::observe(new ModelObserver);
   		
-  	} 
+  	} */
 
 
 	public $timestamps = false;

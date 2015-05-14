@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Observers\ModelObserver;
+//use App\Observers\ModelObserver;
 
 class Tipoproducto extends Model {
 
@@ -15,13 +15,13 @@ class Tipoproducto extends Model {
 	}
 
 	/*llamada del observer para manejar la auditoria del modelo */
-  	public static function boot(){
+  	/*public static function boot(){
 
   		parent::boot();
 
   		Tipoproducto::observe(new ModelObserver);
   		
-  	}
+  	}*/
 
 
 	public $timestamps = false;

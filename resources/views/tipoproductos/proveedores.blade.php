@@ -62,7 +62,7 @@
 
 					@endif
 
-					{!!link_to('proveedores/create','Añadir proveedores')!!}
+					{!!link_to('producto_proveedor/create','Relacionar un producto a un proveedor')!!}
 				</div>
 			</div>
 		</div>

@@ -9,6 +9,11 @@ use App\Proveedore;
 use App\Tipoproducto;
 use View;
 use Redirect;
+use Event;
+use App\Events\Create;
+use App\Events\Delete;
+use App\Events\Update; 
+
 
 class ProveedoresController extends Controller {
 
@@ -62,7 +67,7 @@ class ProveedoresController extends Controller {
 
 		try {
 
-			Proveedore::create([
+			$proveedor = Proveedore::create([
 
 			'nombre' => $request['nombre'],
 			'nit' => $request['nit'],
@@ -78,6 +83,7 @@ class ProveedoresController extends Controller {
 
 		}
 		
+		Event::fire(new Create($proveedor));
 		return redirect('proveedores/create') -> with('mensagge', 'Proveedor registrado');
 
 	}
@@ -130,7 +136,7 @@ class ProveedoresController extends Controller {
 			]);
 		try {
 			
-			Proveedore::where('id', '=', $id)->update([
+			$proveedor = Proveedore::where('id', '=', $id)->update([
 
 			'nombre' => $request['nombre'],
 			'nit' => $request['nit'],
@@ -146,6 +152,7 @@ class ProveedoresController extends Controller {
 
 		}
 		
+		Event::fire(new Update($proveedor));
 		return redirect('proveedores/'.$id.'/edit') -> with('mensagge', 'Proveedor editado');
 
 	}

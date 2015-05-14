@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Observers\ModelObserver;
+//use App\Observers\ModelObserver;
 
 class Proveedore extends Model {
 
@@ -21,13 +21,13 @@ class Proveedore extends Model {
 	}
 
 	/*llamada del observer para manejar la auditoria del modelo */
-  	public static function boot(){
+  	/*public static function boot(){
 
   		parent::boot();
 
   		Proveedore::observe(new ModelObserver);
   		
-  	}
+  	}*/
 
 
 	public $timestamps = false;
