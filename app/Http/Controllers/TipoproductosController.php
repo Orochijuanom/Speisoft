@@ -175,7 +175,7 @@ class TipoproductosController extends Controller {
 		$tipoproducto = Tipoproducto::find($id);
 		$productos = $tipoproducto->productos()->paginate(10);
 
-		return View::make('tipo_productos.productos', ['tipoproducto' => $tipoproducto, 'productos' => $productos]);
+		return View::make('tipoproductos.productos', ['tipoproducto' => $tipoproducto, 'productos' => $productos]);
 
 	}
 

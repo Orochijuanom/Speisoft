@@ -4,7 +4,7 @@ use App\Events\Event;
 
 use Illuminate\Queue\SerializesModels;
 
-class Detach extends Event {
+class Audit extends Event {
 
 	use SerializesModels;
 
@@ -13,9 +13,15 @@ class Detach extends Event {
 	 *
 	 * @return void
 	 */
-	public function __construct()
+
+	public $model;
+	public $action;
+
+	public function __construct($model, $action)
 	{
-		//
+	
+		$this->model = $model;
+		$this->action = $action;
 	}
 
 }

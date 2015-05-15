@@ -10,6 +10,8 @@ use App\Proveedore;
 use View;
 use Redirect;
 use Response;
+use Event;
+use App\Events\Audit;
 
 
 class Productoproveedores extends Controller {
@@ -55,6 +57,8 @@ class Productoproveedores extends Controller {
 
 				$proveedor = Proveedore::findOrFail($request['proveedore_id']);
 				
+				$producto = Producto::findOrFail($request['producto_id']);
+
 			} catch (Exception $e) {
 
 				return Response::view('errors/404', array(), 404);
@@ -67,12 +71,12 @@ class Productoproveedores extends Controller {
 
 			} catch (\PDOException $exception) {
 				
-				return redirect('producto_proveedor/create') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+				return Redirect::back() -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 
 			}	
 		
-
-		return redirect('producto_proveedor/create') -> with('mensagge', 'Producto asociado al proveedor');
+		\Event::fire(new Audit($proveedor, 'se ha vinculado con  '.$producto->producto));
+		return Redirect::back() -> with('mensagge', 'Producto asociado al proveedor');
 		
 
 	}
@@ -91,6 +95,8 @@ class Productoproveedores extends Controller {
 		try {
 
 				$proveedor = Proveedore::findOrFail($proveedore_id);
+
+				$producto = Producto::findOrFail($producto_id);
 				
 			} catch (Exception $e) {
 
@@ -100,7 +106,8 @@ class Productoproveedores extends Controller {
 
 			if($proveedor->productos()->detach($producto_id)){
 
-				return Redirect::route('proveedores.productos',[$proveedore_id]) -> with('mensagge_delete', 'Producto desvinculado del proveedor');
+				\Event::fire(new Audit($proveedor, 'Se ha desviculado '.$producto->producto));
+				return Redirect::back() -> with('mensagge_delete', 'Producto desvinculado del proveedor');
 
 			}else{
 
@@ -116,6 +123,8 @@ class Productoproveedores extends Controller {
 		try {
 
 				$proveedor = Proveedore::findOrFail($proveedore_id);
+
+				$producto = Producto::findOrFail($producto_id);
 				
 			} catch (Exception $e) {
 
@@ -125,7 +134,8 @@ class Productoproveedores extends Controller {
 
 			if($proveedor->productos()->detach($producto_id)){
 
-				return Redirect::route('productos.proveedores',[$producto_id]) -> with('mensagge_delete', 'Producto desvinculado del proveedor');
+				\Event::fire(new Audit($producto, 'Se ha desvinculado '. $proveedor->nombre));
+				return Redirect::back() -> with('mensagge_delete', 'Producto desvinculado del proveedor');
 
 			}else{
 

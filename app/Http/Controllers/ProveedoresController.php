@@ -10,9 +10,7 @@ use App\Tipoproducto;
 use View;
 use Redirect;
 use Event;
-use App\Events\Create;
-use App\Events\Delete;
-use App\Events\Update; 
+use App\Events\Audit;
 
 
 class ProveedoresController extends Controller {
@@ -79,12 +77,12 @@ class ProveedoresController extends Controller {
 			
 		} catch (\PDOException $exception) {
 			
-			return redirect('proveedores/create') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+			return Redirect::back() -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 
 		}
 		
-		Event::fire(new Create($proveedor));
-		return redirect('proveedores/create') -> with('mensagge', 'Proveedor registrado');
+		\Event::fire(new Audit($proveedor, 'Se ha creado un registro'));
+		return Redirect::back()-> with('mensagge', 'Proveedor registrado');
 
 	}
 
@@ -136,24 +134,26 @@ class ProveedoresController extends Controller {
 			]);
 		try {
 			
-			$proveedor = Proveedore::where('id', '=', $id)->update([
+			$proveedor = Proveedore::find($id);
 
-			'nombre' => $request['nombre'],
-			'nit' => $request['nit'],
-			'telefono' => $request['telefono'],
-			'celular' => $request['celular'],
-			'email' => $request['email']
+			$proveedor->nombre = $request['nombre'];
+			$proveedor->nit = $request['nit'];
+			$proveedor->telefono = $request['telefono'];
+			$proveedor->celular = $request['celular'];
+			$proveedor->email = $request['email'];
+			
+			$proveedor->save();
 
-			]);
+			
 
 		} catch (\PDOException $exception) {
 			
-			return redirect('proveedores/'.$id.'/edit') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+			return Redirect::back() -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 
 		}
 		
-		Event::fire(new Update($proveedor));
-		return redirect('proveedores/'.$id.'/edit') -> with('mensagge', 'Proveedor editado');
+		\Event::fire(new Audit($proveedor, 'Se ha editado un registro'));
+		return Redirect::back() -> with('mensagge', 'Proveedor editado');
 
 	}
 
@@ -182,11 +182,12 @@ class ProveedoresController extends Controller {
 			
 		} catch (\PDOException $exception) {
 			
-			return Redirect::route('proveedores.index') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+			return Redirect::back() -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 
 		}
 		
-		return Redirect::route('proveedores.index') -> with('mensagge_delete', 'Proveedor eliminado');
+		\Event::fire(new Audit($proveedor, 'Se ha eliminado un registro'));
+		return Redirect::back() -> with('mensagge_delete', 'Proveedor eliminado');
 
 	}
 
