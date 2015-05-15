@@ -132,6 +132,7 @@ class ProveedoresController extends Controller {
 			'email' => 'email|required|max:255'
 
 			]);
+		
 		try {
 			
 			$proveedor = Proveedore::find($id);

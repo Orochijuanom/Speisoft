@@ -9,6 +9,9 @@ use Response;
 
 use App\Rol;
 
+use Event;
+use App\Events\Audit;
+
 trait AuthenticatesAndRegistersUsers {
 
 	/**
@@ -55,8 +58,9 @@ trait AuthenticatesAndRegistersUsers {
 			);
 		}
 
-		$this->registrar->create($request->all());
+		$user = $this->registrar->create($request->all());
 
+		\Event::fire(new Audit($user, 'Se ha creado un registro'));		
 		return redirect('auth/register') -> with('mensagge', 'Usuario registrado');
 	}
 

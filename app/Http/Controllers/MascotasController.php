@@ -10,6 +10,8 @@ use App\Cliente;
 use App\Raza;
 use View;
 use Redirect;
+use Event;
+use App\Events\Audit;
 
 class MascotasController extends Controller {
 
@@ -77,7 +79,7 @@ class MascotasController extends Controller {
 		
 		try {
 			
-			Mascota::create([
+			$mascota = Mascota::create([
 
 			'nombre' => $request['nombre'],
 			'cliente_id' => $request['cliente_id'],
@@ -101,12 +103,12 @@ class MascotasController extends Controller {
 
 		} catch (\PDOException $exception) {
 			
-			return redirect('mascotas/create') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+			return Redirect::back() -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 
 		}
 		
-
-		return redirect('mascotas/create') -> with('mensagge', 'Mascota registrada');
+		\Event::fire(new Audit($mascota, 'Se ha creado un registro'));
+		return Redirect::back() -> with('mensagge', 'Mascota registrada');
 
 	}
 
@@ -174,35 +176,36 @@ class MascotasController extends Controller {
 		
 		try {
 			
-			Mascota::where('id', '=', $id)->update([
+			$mascota = Mascota::find($id);
 
-			'nombre' => $request['nombre'],
-			'cliente_id' => $request['cliente_id'],
-			'raza_id' => $request['raza_id'],
-			'sexo' => $request['sexo'],
-			'peso' => $request['peso'],
-			'alzada' => $request['alzada'],
-			'color' => $request['color'],
-			'pelaje' => $request['pelaje'],
-			'cicatrices' => $request['cicatrices'],
-			'cxesteticas' => $request['cxesteticas'],
-			'tatuajes' => $request['tatuajes'],
-			'condcorporal' => $request['condcorporal'],
-			'finzootecnico' => $request['finzootecnico'],
-			'entorno' => $request['entorno'],
-			'nutricion' => $request['nutricion'],
-			'nacimiento' => $request['nacimiento'],
-			'recordatoriocumple' => $request['recordatoriocumple']
+			$mascota->nombre = $request['nombre'];
+			$mascota->cliente_id = $request['cliente_id'];
+			$mascota->raza_id = $request['raza_id'];
+			$mascota->sexo = $request['sexo'];
+			$mascota->peso = $request['peso'];
+			$mascota->alzada = $request['alzada'];
+			$mascota->color = $request['color'];
+			$mascota->pelaje = $request['pelaje'];
+			$mascota->cicatrices = $request['cicatrices'];
+			$mascota->cxesteticas = $request['cxesteticas'];
+			$mascota->tatuajes = $request['tatuajes'];
+			$mascota->condcorporal = $request['condcorporal'];
+			$mascota->finzootecnico = $request['finzootecnico'];
+			$mascota->entorno = $request['entorno'];
+			$mascota->nutricion = $request['nutricion'];
+			$mascota->nacimiento = $request['nacimiento'];
+			$mascota->recordatoriocumple = $request['recordatoriocumple'];
 
-			]);
+			$mascota->save();
 
 		} catch (\PDOException $exception) {
 			
-			return redirect('mascotas/'.$id.'/edit') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+			return Redirect::back() -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 		
 		}
 		 
-		return redirect('mascotas/'.$id.'/edit') ->with('mensagge', 'Mascota editada');
+		\Event::fire(new Audit($mascota, 'Se ha editado un registro'));
+		return Redirect::back() ->with('mensagge', 'Mascota editada');
 
 
 	}
@@ -232,11 +235,12 @@ class MascotasController extends Controller {
 				
 			} catch (\PDOException $exception) {
 				
-				return Redirect::route('mascotas.index') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+				return Redirect::back() -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 
 			}
 			
-			return Redirect::route('mascotas.index') -> with('mensagge_delete', 'Mascota eliminada');
+			\Event::fire(new Audit($mascota, 'Se ha eliminado un registro'));
+			return Redirect::back() -> with('mensagge_delete', 'Mascota eliminada');
 
 			
 

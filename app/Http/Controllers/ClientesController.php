@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Cliente;
 use View;
 use Redirect;
+use Event;
+use App\Events\Audit;
 
 
 class ClientesController extends Controller {
@@ -69,7 +71,7 @@ class ClientesController extends Controller {
 		
 		try {
 
-			Cliente::create([
+			$cliente = Cliente::create([
 
 			'nombre' => $request['nombre'],
 			'apellidos' => $request['apellidos'],
@@ -87,11 +89,12 @@ class ClientesController extends Controller {
 			
 		} catch (\PDOException $exception) {
 			
-			return redirect('clientes/create') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+			return Redirect::back() -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 
 		}
 		
-		return redirect('clientes/create') -> with('mensagge', 'Cliente registrado');
+		\Event::fire(new Audit($cliente, 'Se ha creado un registro'));
+		return Redirect::back() -> with('mensagge', 'Cliente registrado');
 
 	}
 
@@ -147,29 +150,32 @@ class ClientesController extends Controller {
 
 		try {
 			
-			Cliente::where('id', '=', $id)->update([
+			$cliente = Cliente::find($id);	
+			
+			$cliente->nombre = $request['nombre'];
+			$cliente->apellidos = $request['apellidos'];
+			$cliente->cedula = $request['cedula'];
+			$cliente->telefono = $request['telefono'];
+			$cliente->celular = $request['celular'];
+			$cliente->email = $request['email'];
+			$cliente->direccion = $request['direccion'];
+			$cliente->bbm = $request['bbm'];
+			$cliente->facebook = $request['facebook'];
+			$cliente->profesion = $request['profesion'];
+			$cliente->cumpleanios = $request['cumpleanios'];
 
-			'nombre' => $request['nombre'],
-			'apellidos' => $request['apellidos'],
-			'cedula' => $request['cedula'],
-			'telefono' => $request['telefono'],
-			'celular' => $request['celular'],
-			'email' => $request['email'],
-			'direccion' => $request['direccion'],
-			'bbm' => $request['bbm'],
-			'facebook' => $request['facebook'],
-			'profesion' => $request['profesion'],
-			'cumpleanios' => $request['cumpleanios']
+			$cliente->save();
 
-			]);
+			
 
 		}catch (\PDOException $exception) {
 			
-			return redirect('clientes/'.$id.'/edit') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+			return Redirect::back() -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 
 		}
 
-		return redirect('clientes/'.$id.'/edit') -> with('mensagge', 'Cliente editado');
+		\Event::fire(new Audit($cliente, 'Se ha editado un registro'));
+		return Redirect::back() -> with('mensagge', 'Cliente editado');
 	}
 
 	/**
@@ -196,11 +202,12 @@ class ClientesController extends Controller {
 
 			} catch (\PDOException $exception) {
 				
-				return Redirect::route('clientes.index') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+				return Redirect::back()-> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 
 			}
 			
-			return Redirect::route('clientes.index') -> with('mensagge_delete', 'Cliente eliminado');
+			\Event::fire(new Audit($cliente, 'Se ha eliminado un registro'));
+			return Redirect::back() -> with('mensagge_delete', 'Cliente eliminado');
 
 	}
 

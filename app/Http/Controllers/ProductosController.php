@@ -9,6 +9,8 @@ use App\Producto;
 use App\Tipoproducto;
 use View;
 use Redirect;
+use Event;
+use App\Events\Audit;
 
 class ProductosController extends Controller {
 
@@ -59,7 +61,7 @@ class ProductosController extends Controller {
 
 		try {
 
-			Producto::create([
+			$producto = Producto::create([
 
 			'tipoproducto_id' => $request['tipoproducto_id'],
 			'producto' => $request['producto']
@@ -68,11 +70,12 @@ class ProductosController extends Controller {
 			
 		} catch (\PDOException $exception) {
 			
-			return redirect('productos/create') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+			return Redirect::back() -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 		
 		}
 		
-		return redirect('productos/create') -> with('mensagge', 'Producto registrado');
+		\Event::fire(new Audit($producto, 'Se ha creado un registro'));
+		return Redirect::back() -> with('mensagge', 'Producto registrado');
 
 	}
 
@@ -124,20 +127,21 @@ class ProductosController extends Controller {
 
 		try {
 
-			Producto::where('id', '=', $id)->update([
+			$producto = Producto::find($id);
 
-			'tipoproducto_id' => $request['tipoproducto_id'],
-			'producto' => $request['producto']
+			$producto->tipoproducto_id = $request['tipoproducto_id'];
+			$producto->producto = $request['producto'];
 
-			]);
+			$producto->save();
 			
 		} catch (\PDOException $exception) {
 			
-			return redirect('productos/'.$id.'/edit') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+			return Redirect::back() -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 
 		}
 		
-		return redirect('productos/'.$id.'/edit') -> with('mensagge', 'Producto editado');
+		\Event::fire(new Audit($producto, 'Se ha editado un registro'));
+		return Redirect::back() -> with('mensagge', 'Producto editado');
 
 
 	}
@@ -167,10 +171,11 @@ class ProductosController extends Controller {
 
 			} catch (\PDOException $exception) {
 				
-				return Redirect::route('productos.index') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+				return Redirect::back() -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 			}
 			
-			return Redirect::route('productos.index') -> with('mensagge_delete', 'Producto eliminado');
+			\Event::fire(new Audit($producto, 'Se ha eliminado un registro'));
+			return Redirect::back() -> with('mensagge_delete', 'Producto eliminado');
 
 			
 

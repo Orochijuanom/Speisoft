@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 use App\Especie;
 use View;
 use Redirect;
-
+use Event;
+use App\Events\Audit;
 
 class EspeciesController extends Controller {
 
@@ -57,7 +58,7 @@ class EspeciesController extends Controller {
 
 		try {
 			
-			Especie::create([
+			$especie = Especie::create([
 
 			'especie' => $request['especie']
 
@@ -66,11 +67,12 @@ class EspeciesController extends Controller {
 
 		}catch (\PDOException $exception) {
 			
-			return redirect('especies/create') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+			return Redirect::back() -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 
 		}
 		
-		return redirect('especies/create') -> with('mensagge', 'Especie registrada'); 
+		\Event::fire(new Audit($especie, 'Se ha creado un registro'));
+		return Redirect::back() -> with('mensagge', 'Especie registrada'); 
 
 	}
 
@@ -116,22 +118,25 @@ class EspeciesController extends Controller {
 			'especie' => 'required|min:4|max:255|unique:especies,especie,'.$id.''
 
 			]);
+
 		try {
 
-			Especie::where('id', '=', $id)->update([
+			$especie = Especie::find($id);
 
-			'especie' => $request['especie']
+			$especie->especie = $request['especie'];
 
-			]);
+			$especie->save();
+
+			
 			
 		}catch (\PDOException $exception) {
 			
-			return redirect('especies/'.$id.'/edit') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+			return Redirect::back() -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 
 		}
 		
-
-		return redirect('especies/'.$id.'/edit') -> with('mensagge', 'Especie editada');
+		\Event::fire(new Audit($especie, 'Se ha editado un registro'));
+		return Redirect::back() -> with('mensagge', 'Especie editada');
 
 	}
 
@@ -160,11 +165,12 @@ class EspeciesController extends Controller {
 
 		}catch (\PDOException $exception) {
 			
-			return Redirect::route('especies.index') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+			return Redirect::back() -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 
 		}
 		
-		return Redirect::route('especies.index') -> with('mensagge_delete', 'Especie eliminada');
+		\Event::fire(new Audit($especie, 'Se ha eliminado un registro'));
+		return Redirect::back() -> with('mensagge_delete', 'Especie eliminada');
 
 	}
 

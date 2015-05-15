@@ -10,6 +10,8 @@ use View;
 use Response;
 use Redirect;
 use Auth;
+use Event;
+use App\Events\Audit;
 
 
 class UsersController extends Controller {
@@ -113,11 +115,12 @@ class UsersController extends Controller {
 
 			} catch (\PDOException $exception) {
 				
-				return Redirect::route('users.index') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+				return Redirect::back() -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 			
 			}
-							
-			return Redirect::route('users.index') -> with('mensagge_delete', 'Usuario eliminado');
+			
+			\Event::fire(new Audit($user, 'Se ha eliminado un registro'));				
+			return Redirect::back() -> with('mensagge_delete', 'Usuario eliminado');
 		
 		
 		}else{

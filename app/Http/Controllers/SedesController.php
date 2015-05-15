@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Sede;
 use View;
 use Redirect;
+use Event;
+use App\Events\Audit;
 
 class SedesController extends Controller {
 
@@ -62,7 +64,7 @@ class SedesController extends Controller {
 
 		try {
 			
-			Sede::create([
+			$sede = Sede::create([
 
 			'nombre' => $request['nombre'],
 			'direccion' => $request['direccion'],
@@ -75,12 +77,12 @@ class SedesController extends Controller {
 
 		} catch (\PDOException $exception) {
 			
-			return redirect('sedes/create') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+			return Redirect::back()-> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 
 		}
 		
-
-		return redirect('sedes/create') -> with('mensagge', 'Sede registrada');
+		\Event::fire(new Audit($sede, 'Se ha creado un registro'));
+		return Redirect::back() -> with('mensagge', 'Sede registrada');
 
 	}
 
@@ -134,25 +136,27 @@ class SedesController extends Controller {
 
 		try {
 			
-			Sede::where('id', '=', $id)->update([
+			$sede = Sede::find($id);
 
-			'nombre' => $request['nombre'],
-			'direccion' => $request['direccion'],
-			'telefono' => $request['telefono'],
-			'email' => $request['email'],
-			'encargado' => $request['encargado'],
-			'nit' => $request['nit']
+			$sede->nombre = $request['nombre'];
+			$sede->direccion = $request['direccion'];
+			$sede->telefono = $request['telefono'];
+			$sede->email = $request['email'];
+			$sede->encargado = $request['encargado'];
+			$sede->nit = $request['nit'];
 
-			]);
+			$sede->save();
+
+			
 
 		} catch (\PDOException $exception) {
 			
-			return redirect('sedes/'.$id.'/edit') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+			return Redirect::back() -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 
 		}
 		
-
-		return redirect('sedes/'.$id.'/edit') -> with('mensagge', 'Sede editada');
+		\Event::fire(new Audit($sede, 'Se ha editado un registro'));
+		return Redirect::back() -> with('mensagge', 'Sede editada');
 
 	}
 
@@ -181,12 +185,12 @@ class SedesController extends Controller {
 
 		} catch (\PDOException $exception) {
 			
-			return Redirect::route('sedes.index') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+			return Redirect::back() -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 
 		}
 		
-			
-		return Redirect::route('sedes.index') -> with('mensagge_delete', 'Sede eliminada');
+		\Event::fire(new Audit($sede, 'Se ha eliminado un registro'));	
+		return Redirect::back() -> with('mensagge_delete', 'Sede eliminada');
 
 		}
 

@@ -9,6 +9,8 @@ use App\Especie;
 use App\Raza;
 use View;
 use Redirect;
+use Event;
+use App\Events\Audit;
 
 class RazasController extends Controller {
 
@@ -61,7 +63,7 @@ class RazasController extends Controller {
 
 		try {
 
-			Raza::create([
+			$raza = Raza::create([
 
 			'especie_id' => $request['especie_id'],
 			'raza' => $request['raza']
@@ -70,11 +72,12 @@ class RazasController extends Controller {
 			
 		} catch (\PDOException $exception) {
 			
-			return redirect('razas/create') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+			return Redirect::back() -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 
 		}
-				
-		return redirect('razas/create') -> with('mensagge', 'Raza registrada');
+		
+		\Event::fire(new Audit($raza, 'Se ha creado un registro'));		
+		return Redirect::back() -> with('mensagge', 'Raza registrada');
 
 	}
 
@@ -124,20 +127,20 @@ class RazasController extends Controller {
 		
 		try {
 			
-			Raza::where('id', '=', $id)->update([
+			$raza = Raza::find($id);
 
-			'especie_id' => $request['especie_id'],
-			'raza' => $request['raza']
+			$raza->especie_id = $request['especie_id'];
+			$raza->raza = $request['raza'];
 
-			]);
+			$raza->save();
 
 		} catch (\PDOException $exception) {
 			
-			return redirect('razas/'.$id.'/edit') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+			return Redirect::back() -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 		}
 		
-
-		return redirect('razas/'.$id.'/edit') -> with('mensagge', 'Raza editada');
+		\Event::fire($raza, 'Se ha editado un registro');
+		return Redirect::back() -> with('mensagge', 'Raza editada');
 
 	}
 
@@ -165,10 +168,11 @@ class RazasController extends Controller {
 
 			} catch (\PDOException $exception) {
 				
-				return Redirect::route('razas.index') -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
+				return Redirect::back() -> withErrors(['mesagge' => 'Ha ocurrido un error en la consulta '.$exception->getCode()]);
 			}
 			
-			return Redirect::route('razas.index') -> with('mensagge_delete', 'raza eliminada');
+			\Event::fire(new Audit($raza, 'Se ha eliminado un registro'));
+			return Redirect::back()-> with('mensagge_delete', 'raza eliminada');
 
 			
 	}
