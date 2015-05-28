@@ -17,6 +17,12 @@ class Sede extends Model {
   		
   	}*/
 
+  	public function proveedores(){
+
+  		return $this->belongsToMany('App/Proveedore');
+
+  	}
+
 	public $timestamps = false;
 
 	protected $table = 'sedes';

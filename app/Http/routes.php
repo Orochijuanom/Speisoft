@@ -44,10 +44,14 @@ Route::get('/tipo_productos/{tipo_productos}/productos', ['as' => 'tipo_producto
 Route::get('/tipo_productos/{tipo_productos}/proveedores', ['as' => 'tipo_productos.proveedores', 'uses' => 'TipoproductosController@proveedores']);
 Route::resource('/tipo_productos', 'TipoproductosController');
 
+//formato ruta detach /ruta_del_controlador/vista_desde_la_que_se_desvicuncula/{id}/item_que_se_desvincula/{id}
 Route::delete('/producto_proveedor/proveedor/{proveedor}/producto/{producto}', ['as' => 'producto_proveedor.detachproducto', 'uses' => 'Productoproveedores@detachproducto']);
 Route::delete('/producto_proveedor/producto/{producto}/proveedor/{proveedor}', ['as' => 'producto_proveedor.detachproveedor', 'uses' => 'Productoproveedores@detachproveedor']);
-
 Route::resource('/producto_proveedor', 'Productoproveedores', ['only' =>['create', 'store']]);
 
 Route::get('/productos/{productos}/proveedores', ['as' => 'productos.proveedores', 'uses' => 'ProductosController@proveedores']);
 Route::resource('/productos', 'ProductosController');
+
+Route::delete('/proveedor_sede/proveedor/{proveedor}/sede/{sede}', ['as' => 'proveedor_sede.detachsede', 'uses' => 'Proveedorsedes@detachsede']);
+Route::delete('proveedor_sede/sede/{sede}/proveedor/{proveedor}', ['as' => 'proveedor_sede.detachproveedor', 'uses' => 'Proveedorsedes@detachproveedor']);
+Route::resource('/proveedor_sede', 'Proveedorsedes', ['only' => ['create', 'store']]);
