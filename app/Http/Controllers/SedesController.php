@@ -192,6 +192,14 @@ class SedesController extends Controller {
 		\Event::fire(new Audit($sede, 'Se ha eliminado un registro'));	
 		return Redirect::back() -> with('mensagge_delete', 'Sede eliminada');
 
-		}
+	}
+
+	public function proveedores($id){
+
+		$sede = Sede::find($id);
+		$proveedores = $sede->proveedores()->paginate(10);
+
+		return View::make('sedes.proveedores', ['sede' => $sede, 'proveedores' => $proveedores]);
+	}
 
 }

@@ -37,6 +37,7 @@
 										<th>Email</th>
 										<th>Tipos de productos</th>
 										<th>Productos</th>
+										<th>Sedes<th>
 										<th>Eliminar</th>
 									</tr>
 								</thead>
@@ -51,6 +52,7 @@
 											<td data-title='email'>{{$proveedor->email}}</td>
 											<td data-title='Tipos de productos'><a href="proveedores/{{$proveedor->id}}/tipo_productos">Ver tipos de productos</a></td>
 											<td data-title='Productos'><a href="proveedores/{{$proveedor->id}}/productos">Ver productos</a></td>
+											<td data-title='Sedes'><a href="proveedores/{{$proveedor->id}}/sedes">Ver Sedes</a></td>
 											<td data-title='Eliminar'>
 												<form action='/proveedores/{{$proveedor->id}}' method='post'>
 

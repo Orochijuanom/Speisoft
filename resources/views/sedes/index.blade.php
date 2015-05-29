@@ -34,6 +34,7 @@
 										<th>Direccion</th>
 										<th>Telefono</th>
 										<th>Email</th>
+										<th>Proveedores</th>
 										<th>Eliminar</th>
 									</tr>
 								</thead>
@@ -45,6 +46,7 @@
 											<td data-title='Direccion'>{{$sede->direccion}}</td>
 											<td data-title='Telefono'>{{$sede->telefono}}</td>
 											<td data-title='Email'>{{$sede->email}}</td>
+											<td data-title='Proveedores'><a href="sedes/{{$sede->id}}/proveedores">Ver proveedores</a></td>
 											<td data-title='Eliminar'>
 												<form action='/sedes/{{$sede->id}}' method='post'>
 

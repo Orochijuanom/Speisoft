@@ -211,4 +211,13 @@ class ProveedoresController extends Controller {
 
 	}
 
+	public function sedes($id){
+
+		$proveedor = Proveedore::find($id);
+		$sedes = $proveedor->sedes()->paginate(10);
+
+		return View::make('proveedores.sedes', ['proveedor' => $proveedor, 'sedes' => $sedes]);
+
+	}
+
 }

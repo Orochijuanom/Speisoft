@@ -14,7 +14,7 @@ use Event;
 use App\Events\Audit;
 
 
-class Productoproveedores extends Controller {
+class ProductoproveedoresController extends Controller {
 
 	public function __construct(){
 
@@ -134,7 +134,7 @@ class Productoproveedores extends Controller {
 
 			if($proveedor->productos()->detach($producto_id)){
 
-				\Event::fire(new Audit($producto, 'Se ha desvinculado '. $proveedor->nombre));
+				\Event::fire(new Audit($producto, 'Se ha desvinculado '.$proveedor->nombre));
 				return Redirect::back() -> with('mensagge_delete', 'Producto desvinculado del proveedor');
 
 			}else{
