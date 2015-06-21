@@ -44,7 +44,7 @@
 								</tbody>
 
 							</table>
-							{!!$productos->render()!!}
+							{!!$sedes->render()!!}
 						</section>
 					@else
 

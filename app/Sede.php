@@ -19,7 +19,7 @@ class Sede extends Model {
 
   	public function proveedores(){
 
-  		return $this->belongsToMany('App/Proveedore');
+  		return $this->belongsToMany('App\Proveedore');
 
   	}
 

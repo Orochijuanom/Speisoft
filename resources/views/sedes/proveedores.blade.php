@@ -5,24 +5,13 @@
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
-				<div class="panel-heading">Proveedores</div>
+				<div class="panel-heading">{{$sede->nombre}}</div>
 				<div class="panel-body">
 					@if (Session::get('mensagge_delete'))
 						<div class="alert alert-success">
 							{{Session::get('mensagge_delete')}}
 							<br><br>			
 						</div>
-					@endif
-
-					@if (count($errors) > 0)
-							<div class="alert alert-danger">
-								<strong>Whoops!</strong> Hubo Algunos problemas con tu entrada.<br><br>
-								<ul>
-									@foreach ($errors->all() as $error)
-										<li>{{ $error }}</li>
-									@endforeach
-								</ul>
-							</div>
 					@endif
 
 					@if(count($proveedores)>0)
@@ -36,30 +25,26 @@
 										<th>Celular</th>
 										<th>Email</th>
 										<th>Tipos de productos</th>
-										<th>Productos</th>
-										<th>Sedes</th>
-										<th>Eliminar</th>
+										<th>Desvincular</th>
 									</tr>
 								</thead>
 								<tbody>
 									@foreach ($proveedores as $proveedor)
 
 										<tr>
-											<td data-title='Nombre'><a href="proveedores/{{$proveedor->id}}">{{$proveedor->nombre}}</a></td>
+											<td data-title='Nombre'><a href="/proveedores/{{$proveedor->proveedore_id}}">{{$proveedor->nombre}}</a></td>
 											<td data-title='Nit'>{{$proveedor->nit}}</td>
 											<td data-title='Telefono'>{{$proveedor->telefono}}</td>
 											<td data-title='Celular'>{{$proveedor->celular}}</td>
 											<td data-title='email'>{{$proveedor->email}}</td>
-											<td data-title='Tipos de productos'><a href="proveedores/{{$proveedor->id}}/tipo_productos">Ver tipos de productos</a></td>
-											<td data-title='Productos'><a href="proveedores/{{$proveedor->id}}/productos">Ver productos</a></td>
-											<td data-title='Sedes'><a href="proveedores/{{$proveedor->id}}/sedes">Ver Sedes</a></td>
-											<td data-title='Eliminar'>
-												<form action='/proveedores/{{$proveedor->id}}' method='post'>
+											<td data-title='Tipos de productos'><a href="/proveedores/{{$proveedor->proveedore_id}}/tipo_productos">Ver tipos de productos</a></td>
+											<td data-title='Desvincular'>
+												<form action='/proveedor_sede/sede/{{$sede->id}}/proveedor/{{$proveedor->proveedore_id}}' method='post'>
 
 													<input name='_method' type='hidden' value='DELETE'>
 													<input name='_token' type='hidden' value='{{csrf_token()}}'>
 													<button type='submit' class="btn btn-danger">
-														Eliminar Proveedor
+														Desvincular Sede del proveedor
 													</button>
 												</form>
 											</td>
@@ -73,11 +58,11 @@
 						</section>
 					@else
 
-						<p class='alert alert-info'><strong>Whoops!</strong> No se encuetran proveedores en el sistema.</p>
+						<p class='alert alert-info'><strong>Whoops!</strong> No se encuetran proveedores relacionados a esta sede en el sistema.</p>
 
 					@endif
 
-					{!!link_to('proveedores/create','Añadir proveedores')!!}
+					{!!link_to('proveedor_sede/create','Relacionar una sede a un proveedor')!!}
 				</div>
 			</div>
 		</div>

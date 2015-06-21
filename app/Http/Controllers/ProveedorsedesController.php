@@ -11,7 +11,7 @@ use View;
 use Redirect;
 use Response;
 use Event;
-use App\Event\Audit;
+use App\Events\Audit;
 
 class ProveedorsedesController extends Controller {
 
@@ -29,7 +29,7 @@ class ProveedorsedesController extends Controller {
 	public function create()
 	{
 		
-		$proveedores = Proveedor::orderBy('id', 'ASC')->get();
+		$proveedores = Proveedore::orderBy('id', 'ASC')->get();
 		$sedes = Sede::orderBy('id', 'ASC')->get();
 
 		return View::make('proveedorsedes.create', ['proveedores' => $proveedores, 'sedes' => $sedes]);
@@ -46,7 +46,7 @@ class ProveedorsedesController extends Controller {
 		
 		$this->validate($request,[
 
-			'prveedore_id' => 'required',
+			'proveedore_id' => 'required',
 			'sede_id' => 'required'
 
 			]);
