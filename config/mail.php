@@ -28,7 +28,7 @@ return [
 	|
 	*/
 
-	'host' => 'victorushero.com',
+	'host' => 'vivecundinamarca.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return [
 	|
 	*/
 
-	'from' => ['address' => 'demos@victorushero.com', 'name' => 'contacto'],
+	'from' => ['address' => 'demos@vivecundinamarca.com', 'name' => 'contacto'],
 
 	/*
 	|--------------------------------------------------------------------------
